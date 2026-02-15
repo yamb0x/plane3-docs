@@ -1,0 +1,100 @@
+---
+title: "Pipelines"
+description: "Build, run, and iterate on multi-step AI workflows in the node graph."
+---
+
+A pipeline is a connected chain of nodes that produces or transforms a 3D asset. You build pipelines by adding nodes, wiring them together, and running them. This page covers the full workflow from creation to iteration.
+
+## Building a pipeline from scratch
+
+<Steps>
+  <Step title="Switch to graph view">
+    Select an object on the canvas and click the **Graph View** toggle in the top bar, or create a new empty graph from the graph editor menu.
+  </Step>
+  <Step title="Add nodes">
+    Right-click on the graph canvas to open the node menu. Browse or search for the node you need and click to place it.
+  </Step>
+  <Step title="Connect nodes">
+    Drag from an output port on one node to an input port on another. Connections must match port types. See [Connections](/features/node-graph/connections) for details on type compatibility.
+  </Step>
+  <Step title="Configure parameters">
+    Click a node to open its parameter panel on the right. Adjust settings like prompt text, iteration counts, or quality levels.
+  </Step>
+  <Step title="Connect an Output node">
+    Add an Output node and connect your final MESH output to it. The Output node determines what appears on the canvas.
+  </Step>
+</Steps>
+
+## Running a pipeline
+
+Click the **Run** button on any node to execute it. When you run a node, all of its upstream dependencies execute first, in topological order. Nodes that are already materialized (previously run with the same parameters) are skipped.
+
+Execution flows from source nodes to the target node.
+
+```
+Prompt → Hunyuan3D Text → Retexture → Output
+  1           2              3          4
+```
+
+If you click Run on the Retexture node, plane3 executes Prompt, then Hunyuan3D Text, then Retexture -- in that order.
+
+<Note>
+  Running a pipeline does not re-execute materialized nodes unless their parameters have changed. This saves time when you only modify one step in a long pipeline.
+</Note>
+
+## Re-running with changes
+
+To iterate on a pipeline:
+
+1. Change a parameter on any node (edit the prompt, switch the model, adjust a setting).
+2. The modified node and all downstream nodes reset to **draft** state.
+3. Click **Run** on the Output node or any downstream node.
+4. Only the changed node and its dependents re-execute. Upstream nodes that have not changed stay materialized.
+
+The result updates in place on the canvas. You do not get a new object -- the existing one is replaced with the new output.
+
+## Multi-branch workflows
+
+A single workflow can contain multiple generation branches, each producing its own 3D object. This is useful when you want to:
+
+- Compare different generation models side by side
+- Create variations from the same prompt
+- Build an asset that combines outputs from different services
+
+Each branch needs its own Output node. The canvas displays one object per Output node.
+
+```
+                ┌→ Hunyuan3D Text → Output A
+Prompt ─────────┤
+                └→ TripoSR ──────→ Output B (via image path)
+```
+
+<Tip>
+  Use multi-branch workflows to quickly compare generation quality across different models without creating separate objects.
+</Tip>
+
+## Example pipeline
+
+Here is a typical pipeline for generating a textured, refined 3D model.
+
+| Step | Node | Purpose |
+|------|------|---------|
+| 1 | Prompt | "a weathered stone pillar with moss" |
+| 2 | Hunyuan3D Text | Generate initial 3D mesh from the prompt |
+| 3 | Quad Remesh | Clean up mesh topology |
+| 4 | Subdivide | Increase mesh resolution |
+| 5 | Retexture | Apply new textures with a more detailed prompt |
+| 6 | Output | Final result displayed on canvas |
+
+Each step builds on the previous one. You can re-run any step to iterate without losing the rest of the pipeline.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Nodes reference" icon="list" href="/features/node-graph/nodes-reference">
+    Browse all available node types for your pipelines.
+  </Card>
+  <Card title="AI services" icon="wand-magic-sparkles" href="/features/ai-generation/ai-services">
+    See the full list of AI services you can use in pipeline nodes.
+  </Card>
+</Columns>

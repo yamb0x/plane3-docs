@@ -1,0 +1,113 @@
+---
+title: "Error handling"
+description: "HTTP status codes, error response format, and common errors returned by the plane3 API."
+---
+
+The plane3 API uses standard HTTP status codes to indicate the success or failure of a request. Errors return a consistent JSON structure with a machine-readable code and a human-readable message.
+
+## Error response format
+
+All error responses follow this structure:
+
+```json
+{
+  "error": {
+    "code": "invalid_request",
+    "message": "The 'name' field is required."
+  }
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `error.code` | string | A machine-readable error identifier |
+| `error.message` | string | A human-readable description of what went wrong |
+
+## HTTP status codes
+
+### Success codes
+
+| Code | Meaning | Description |
+|------|---------|-------------|
+| `200` | OK | The request succeeded |
+| `201` | Created | A new resource was created |
+| `204` | No Content | The request succeeded with no response body (used for deletes) |
+
+### Client error codes
+
+| Code | Meaning | Description |
+|------|---------|-------------|
+| `400` | Bad Request | The request body is malformed or missing required fields |
+| `401` | Unauthorized | The API key is missing, invalid, or expired |
+| `403` | Forbidden | The API key does not have permission for this action |
+| `404` | Not Found | The requested resource does not exist |
+| `409` | Conflict | The resource already exists (for example, duplicate project name) |
+| `422` | Unprocessable Entity | The request is well-formed but contains validation errors |
+| `429` | Too Many Requests | You have exceeded the rate limit. See [Rate limits](/api-reference/rate-limits) |
+
+### Server error codes
+
+| Code | Meaning | Description |
+|------|---------|-------------|
+| `500` | Internal Server Error | Something went wrong on the server. Retry the request or contact support if it persists |
+
+## Common error examples
+
+<Accordion title="401 Unauthorized -- missing or invalid API key">
+```json
+{
+  "error": {
+    "code": "unauthorized",
+    "message": "Invalid or missing API key. Include a valid key in the Authorization header."
+  }
+}
+```
+
+Fix: check that your `Authorization` header is set to `Bearer YOUR_API_KEY` and that the key has not been revoked.
+</Accordion>
+
+<Accordion title="404 Not Found -- resource does not exist">
+```json
+{
+  "error": {
+    "code": "not_found",
+    "message": "Project 'proj_xyz789' was not found."
+  }
+}
+```
+
+Fix: verify the resource ID is correct and that you have access to it.
+</Accordion>
+
+<Accordion title="422 Unprocessable Entity -- validation error">
+```json
+{
+  "error": {
+    "code": "validation_error",
+    "message": "The 'prompt' field must be between 1 and 2000 characters."
+  }
+}
+```
+
+Fix: check the request body against the endpoint's schema and correct the invalid field.
+</Accordion>
+
+<Accordion title="429 Too Many Requests -- rate limited">
+```json
+{
+  "error": {
+    "code": "rate_limited",
+    "message": "Rate limit exceeded. Retry after 2025-01-15T10:30:45Z."
+  }
+}
+```
+
+Fix: wait until the time indicated in the `X-RateLimit-Reset` header before retrying. See [Rate limits](/api-reference/rate-limits) for details.
+</Accordion>
+
+## Best practices
+
+- **Check the status code first** -- use the HTTP status code to determine the category of error before parsing the response body
+- **Log the error code** -- include `error.code` in your application logs for debugging
+- **Retry on 500 errors** -- server errors are usually transient. Retry with exponential backoff (wait 1s, then 2s, then 4s)
+- **Do not retry on 4xx errors** -- client errors indicate a problem with the request that retrying will not fix

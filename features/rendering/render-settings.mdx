@@ -1,0 +1,91 @@
+---
+title: "Render settings"
+description: "Complete reference for path tracer quality presets, environment lighting, sun controls, and camera configuration."
+---
+
+This page documents all configurable settings in the plane3 path tracer. For an introduction to the renderer, see [Path tracer](/features/rendering/path-tracer).
+
+## Quality presets
+
+| Preset | Samples | Bounces | Tiles | Glossy filter |
+|--------|---------|---------|-------|---------------|
+| Preview | 32 | 2 | 1 | On |
+| Medium | 128 | 4 | 4 | On |
+| High | 512 | 8 | 8 | Off |
+| Ultra | 2048 | 12 | 16 | Off |
+
+- **Samples** -- The number of light paths traced per pixel. Higher values reduce noise.
+- **Bounces** -- The maximum number of times a light ray can bounce before being terminated. More bounces improve indirect lighting accuracy.
+- **Tiles** -- The number of tiles the image is divided into for parallel processing. More tiles improve rendering speed on multi-core devices.
+- **Glossy filter** -- When enabled, applies a denoising filter to glossy reflections. Reduces firefly artifacts at the cost of slightly softer reflections.
+
+## HDRI environment
+
+| Setting | Range | Default | Description |
+|---------|-------|---------|-------------|
+| Environment | 5 presets | Studio | Selects the HDRI environment map. Options: Studio, Outdoor, Sunset, Warehouse, Night. |
+| Show background | On/Off | On | When on, the HDRI is visible behind the scene. When off, the background is transparent (rendered as solid color). |
+| Rotation | 0-360 degrees | 0 | Rotates the environment around the vertical axis. Use this to change the direction of key light. |
+| Intensity | 0.0-5.0 | 1.0 | Multiplier for the environment light brightness. |
+
+## Sun light
+
+| Setting | Range | Default | Description |
+|---------|-------|---------|-------------|
+| Azimuth | 0-360 degrees | 180 | Horizontal direction of the sun. 0 is north, 90 is east. |
+| Elevation | 0-90 degrees | 45 | Vertical angle of the sun above the horizon. |
+| Color | RGB | White (#FFFFFF) | Tint of the sun light. |
+| Intensity | 0.0-10.0 | 1.0 | Brightness multiplier for the sun light. |
+| Shadow softness | 0.0-1.0 | 0.3 | Controls the softness of shadows cast by the sun. 0 is sharp, 1 is very soft. |
+
+<Tip>
+  Set the sun elevation to 15-25 degrees for long, dramatic shadows. Combine with a low-intensity HDRI for a sunset look.
+</Tip>
+
+## Camera settings
+
+| Setting | Range | Default | Description |
+|---------|-------|---------|-------------|
+| Focal length | 14-200mm | 50mm | Controls the field of view. Lower values give a wider angle; higher values compress perspective. |
+| F-stop | 1.4-22 | 5.6 | Aperture size for depth of field. Lower values produce more background blur. Only applies when DOF is enabled. |
+| Aperture blades | 3-12 | 6 | Number of blades in the virtual aperture. Affects the shape of bokeh highlights. |
+| Depth of field | On/Off | Off | Enables or disables depth-of-field blur. When off, everything is in sharp focus. |
+
+### Depth of field
+
+When DOF is enabled, the camera focuses on the center of the selected object (or the scene center if nothing is selected). Objects closer to or farther from the focal point appear progressively blurred.
+
+The amount of blur depends on the f-stop value:
+
+| F-stop | Blur amount | Use case |
+|--------|-------------|----------|
+| 1.4-2.8 | Heavy blur | Isolate a single object with strong background separation. |
+| 4.0-8.0 | Moderate blur | Gentle focus falloff. Good for product shots. |
+| 11-22 | Minimal blur | Nearly everything in focus. Similar to DOF off. |
+
+## Platform-specific defaults
+
+The path tracer selects a default quality preset based on your device to balance render quality with performance.
+
+| Platform | Default preset |
+|----------|---------------|
+| Desktop (Chrome, Firefox, Edge) | High |
+| Desktop (Safari) | Medium |
+| Mobile / Tablet | Preview |
+
+You can override the default by selecting a different preset from the quality dropdown. Selecting a preset above your device's capabilities may result in longer render times or browser warnings on memory-constrained devices.
+
+<Warning>
+  The Ultra preset on mobile devices may cause the browser tab to crash due to memory limits. Use Preview or Medium on mobile.
+</Warning>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Path tracer" icon="image" href="/features/rendering/path-tracer">
+    Learn how to use the path tracer interface.
+  </Card>
+  <Card title="Exporting" icon="file-export" href="/features/import-export/exporting">
+    Export your models after rendering.
+  </Card>
+</Columns>

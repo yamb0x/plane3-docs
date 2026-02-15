@@ -1,0 +1,80 @@
+---
+title: "Text-to-3D"
+description: "Generate 3D models from text descriptions using AI services like Hunyuan3D v3."
+---
+
+Text-to-3D lets you describe what you want in plain language and receive a 3D model on your canvas. Type a prompt, pick a model, and generate.
+
+## How to generate from text
+
+<Steps>
+  <Step title="Open the generate menu">
+    Double-click anywhere on the canvas. The generate menu appears at that location.
+  </Step>
+  <Step title="Select Text to 3D">
+    Click the **Text to 3D** tab in the generate menu.
+  </Step>
+  <Step title="Enter your prompt">
+    Type a description of the model you want. Be specific about shape, style, and important details. For example:
+
+    ```
+    a medieval wooden shield with iron rivets and a faded crest
+    ```
+  </Step>
+  <Step title="Choose a model">
+    Select an AI service from the dropdown. **Hunyuan3D v3** is the default and works well for most use cases.
+  </Step>
+  <Step title="Click Generate">
+    Click **Generate** to start. A progress indicator appears on the canvas. Generation typically takes 60 to 90 seconds.
+  </Step>
+  <Step title="View your result">
+    The 3D model appears on the canvas at the location where you opened the menu. Click it to select it and see its properties in the right panel.
+  </Step>
+</Steps>
+
+## Writing good prompts
+
+The quality of your prompt directly affects the quality of the generated model. Here are some guidelines.
+
+<Accordion title="Prompt tips">
+  **Be specific about shape and form.** "A chair" gives the model less to work with than "a mid-century modern armchair with wooden legs and a curved backrest."
+
+  **Mention materials and textures.** Include surface details like "brushed metal", "rough stone", or "glossy ceramic" to guide the texture generation.
+
+  **Describe the style.** Terms like "low-poly", "photorealistic", "stylized", or "cartoon" help the model understand the visual direction.
+
+  **Keep it focused.** Describe a single object rather than a scene. Text-to-3D works best for individual assets.
+
+  **Avoid negations.** Instead of "a chair without armrests", describe what you want: "a simple dining chair with four legs and a flat seat."
+</Accordion>
+
+## Generation history in the node graph
+
+Every text-to-3D generation automatically creates a node graph for the resulting object. The graph contains:
+
+- A **Prompt** node holding your text description
+- A **generation node** (such as Hunyuan3D Text) with the model configuration
+- An **Output** node representing the final 3D asset
+
+You can switch to the graph view to see this pipeline, change the prompt text, swap the generation model, or add downstream operations like retexturing. When you re-run the pipeline, the asset updates in place on the canvas.
+
+## Available models
+
+| Model | Typical duration | Notes |
+|-------|-----------------|-------|
+| Hunyuan3D v3 | 60-90 seconds | Default. Good balance of quality and speed. |
+
+<Note>
+  Text-to-3D currently uses Hunyuan3D v3 as the only available model. Additional text-to-3D services may be added in future updates.
+</Note>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Image-to-3D" icon="image" href="/features/ai-generation/image-to-3d">
+    Generate models from reference images instead of text.
+  </Card>
+  <Card title="AI services reference" icon="list" href="/features/ai-generation/ai-services">
+    See all available AI services and their capabilities.
+  </Card>
+</Columns>

@@ -1,0 +1,55 @@
+---
+title: "Live cursors"
+description: "See where your teammates are on the canvas in real time with colored cursors and selection highlights."
+---
+
+Live cursors let you see the position and activity of every collaborator on a board. Each user gets a uniquely colored cursor that moves across the canvas in real time.
+
+## How live cursors work
+
+When multiple users are on the same board, each user's cursor is broadcast to everyone else over the collaboration WebSocket. Cursor positions update at 60fps, so movement appears smooth and responsive.
+
+Each cursor displays:
+
+- **User name** -- A label next to the cursor showing who it belongs to.
+- **Unique color** -- Each user is assigned a distinct color when they join the board. The color persists for the duration of the session.
+- **Current position** -- The cursor tracks the user's mouse position on the canvas, accounting for pan and zoom.
+
+## Selection highlighting
+
+When a teammate selects an object on the canvas, you see a colored outline around that object matching the teammate's cursor color. This makes it easy to tell what others are working on without asking.
+
+Selection highlighting applies to:
+
+- Single object selection (click an object)
+- Multi-object selection (drag a selection box)
+- Node selection in the graph view
+
+When the teammate deselects the object, the highlight disappears immediately.
+
+## Performance
+
+Cursor updates are lightweight. The system sends only position coordinates and user metadata -- no rendering data. This keeps bandwidth usage low even with many simultaneous collaborators.
+
+Presence data piggybacks on the same WebSocket connection used for document synchronization. There is no additional connection overhead for live cursors.
+
+<Tip>
+  If you are on a slow connection, cursor positions from other users may update slightly less frequently, but your own interactions remain unaffected.
+</Tip>
+
+## Cursor visibility
+
+Cursors are visible across the entire canvas regardless of zoom level. If a collaborator is working on a different part of the board than you, their cursor still appears in their world-space position. You can pan over to their location to see what they are working on.
+
+The active user list in the top bar shows all users currently on the board. Click a user's avatar to snap your viewport to their current position.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Cursor chat" icon="comment" href="/features/collaboration/cursor-chat">
+    Send short messages attached to your cursor.
+  </Card>
+  <Card title="Collaboration overview" icon="users" href="/features/collaboration/overview">
+    Learn about the full collaboration system.
+  </Card>
+</Columns>

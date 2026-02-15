@@ -1,0 +1,87 @@
+---
+title: "Connections"
+description: "How wires work in the node graph, including port types, type compatibility, merge behavior, and cycle detection."
+---
+
+Connections (wires) link the output port of one node to the input port of another. They define how data flows through a pipeline. This page covers port types, compatibility rules, and special behaviors.
+
+## Port types
+
+Every port on a node has a type that determines what data it can carry.
+
+| Type | Color | Description |
+|------|-------|-------------|
+| MESH | Blue | 3D mesh data including geometry, UV coordinates, and textures. |
+| IMAGE | Green | 2D image data such as PNG or JPEG. |
+| TEXT | Orange | A text string, typically a prompt or label. |
+| NUMBER | Gray | A numeric value used for parameters like iteration counts or strengths. |
+| BOOLEAN | Red | A true/false toggle for enabling or disabling features. |
+
+Port colors are consistent throughout the graph editor, so you can quickly identify compatible connections by matching colors.
+
+## Type compatibility
+
+You can only connect an output port to an input port of the same type. Attempting to drag a wire between incompatible types shows a visual indicator and the connection is rejected.
+
+| Output type | Compatible inputs |
+|------------|-------------------|
+| MESH | MESH |
+| IMAGE | IMAGE |
+| TEXT | TEXT |
+| NUMBER | NUMBER |
+| BOOLEAN | BOOLEAN |
+
+There are no implicit type conversions. If you need to use an image as input to a node that expects a mesh, you must pass it through a generation node first.
+
+## Single-input rule
+
+Each input port accepts exactly one incoming connection. If you connect a second wire to an input that already has a connection, the previous connection is replaced.
+
+Output ports have no such restriction. A single output can fan out to multiple downstream nodes. For example, one Load Image node can feed both a Hunyuan3D Image node and a UltraShape node simultaneously.
+
+## Merge-on-connect
+
+When you connect a node from one workflow to a node in a different workflow, the two workflows merge into a single graph. This happens automatically.
+
+For example, if you have an image reference object and a separately generated 3D model, dragging a connection from the image's Load Image node to a UltraShape node on the 3D model merges both objects into one workflow. After the merge, changes to the image reference flow through to the mesh refinement step.
+
+<Warning>
+  Merging workflows is not reversible through undo of the connection. To separate them, you need to delete the connecting wire and any dependent nodes.
+</Warning>
+
+## Smart port matching
+
+When you drag a wire from an output port and hover over a node (rather than a specific port), plane3 automatically highlights the best matching input port based on these priorities:
+
+1. **Exact type match** -- Ports with the same type as the dragged output.
+2. **Empty ports first** -- Among matching ports, unconnected inputs take priority.
+3. **Top-to-bottom order** -- If multiple ports match equally, the topmost port is selected.
+
+This lets you connect nodes quickly without needing to aim precisely at small port targets.
+
+## Cycle detection
+
+The node graph does not allow circular dependencies. If connecting two nodes would create a cycle (where data flows in a loop back to a node that already ran), the connection is rejected with a visual warning.
+
+This ensures that every pipeline has a clear execution order: data flows from source nodes (Prompt, Load Image, Original Model) through processing nodes to Output nodes, with no loops.
+
+## Creating connections
+
+To create a connection:
+
+1. Click and hold on an output port (right side of a node).
+2. Drag the wire to an input port (left side of another node).
+3. Release to complete the connection.
+
+To delete a connection, click on the wire to select it and press **Delete** or **Backspace**.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Pipelines" icon="code-branch" href="/features/node-graph/pipelines">
+    Learn how to build and run multi-step workflows.
+  </Card>
+  <Card title="Nodes reference" icon="list" href="/features/node-graph/nodes-reference">
+    See every node type and its port configuration.
+  </Card>
+</Columns>

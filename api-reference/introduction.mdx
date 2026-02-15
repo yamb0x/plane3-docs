@@ -1,33 +1,68 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "API introduction"
+description: "Overview of the plane3 REST API for managing projects, models, and generation jobs programmatically."
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+The plane3 API lets you manage projects, models, generation jobs, and renders programmatically. You can integrate plane3 into your existing tools and automate 3D content workflows.
 
-## Welcome
+## Base URL
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+All API requests use the following base URL:
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+```
+https://placeholder.plane3.com/api/v1
+```
+
+## Format
+
+The API is a standard REST API that accepts and returns JSON. All request bodies must be sent as JSON with the `Content-Type: application/json` header. Responses are JSON with a `Content-Type: application/json` header.
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+Every request requires authentication via an API key sent in the `Authorization` header. See [Authentication](/api-reference/authentication) for details on generating and using API keys.
+
+## Quick example
+
+List all projects in your account:
+
+```bash
+curl -X GET https://placeholder.plane3.com/api/v1/projects \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+Response:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{
+  "data": [
+    {
+      "id": "proj_abc123",
+      "name": "My first project",
+      "created_at": "2025-01-15T10:30:00Z",
+      "updated_at": "2025-01-15T10:30:00Z"
+    }
+  ],
+  "has_more": false
+}
 ```
+
+## Core resources
+
+| Resource | Description |
+|----------|-------------|
+| [Projects](/api-reference/endpoint/list-projects) | Containers for boards and models |
+| [Models](/api-reference/endpoint/list-models) | 3D assets within a project |
+| [Generations](/api-reference/endpoint/create-generation) | AI generation jobs (text-to-3D, image-to-3D) |
+| [Renders](/api-reference/endpoint/create-render) | Path tracer render jobs |
+| [Webhooks](/api-reference/endpoint/list-webhooks) | Event notifications sent to your server |
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Authentication" icon="key" href="/api-reference/authentication">
+    Set up your API key and start making requests.
+  </Card>
+  <Card title="SDKs" icon="code" href="/api-reference/sdks">
+    Use the JavaScript or Python SDK instead of raw HTTP requests.
+  </Card>
+</Columns>

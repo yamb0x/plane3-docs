@@ -1,0 +1,98 @@
+---
+title: "SDKs and libraries"
+description: "Official JavaScript/TypeScript and Python SDKs for the plane3 API."
+---
+
+plane3 provides official SDKs for JavaScript/TypeScript and Python. Both are open source and wrap the REST API with typed methods and built-in error handling.
+
+## JavaScript / TypeScript
+
+Install the SDK from npm:
+
+```bash
+npm install @plane3/sdk
+```
+
+Quick usage:
+
+```typescript
+import { Plane3Client } from "@plane3/sdk";
+
+const client = new Plane3Client({ apiKey: "YOUR_API_KEY" });
+
+// List all projects
+const projects = await client.projects.list();
+console.log(projects);
+
+// Create a generation job
+const generation = await client.generations.create({
+  prompt: "a medieval treasure chest with iron bands",
+  service: "hunyuan3d",
+  project_id: "proj_abc123",
+});
+console.log(generation.id, generation.status);
+```
+
+- **Repository**: [github.com/plane3/sdk-js](https://placeholder.plane3.com/github/sdk-js)
+- **npm package**: [@plane3/sdk](https://placeholder.plane3.com/npm/plane3-sdk)
+- **TypeScript types**: Included. No separate `@types` package needed.
+
+## Python
+
+Install the SDK from PyPI:
+
+```bash
+pip install plane3
+```
+
+Quick usage:
+
+```python
+from plane3 import Plane3Client
+
+client = Plane3Client(api_key="YOUR_API_KEY")
+
+# List all projects
+projects = client.projects.list()
+print(projects)
+
+# Create a generation job
+generation = client.generations.create(
+    prompt="a medieval treasure chest with iron bands",
+    service="hunyuan3d",
+    project_id="proj_abc123",
+)
+print(generation.id, generation.status)
+```
+
+- **Repository**: [github.com/plane3/sdk-python](https://placeholder.plane3.com/github/sdk-python)
+- **PyPI package**: [plane3](https://placeholder.plane3.com/pypi/plane3)
+- **Python versions**: 3.9 and above
+
+## SDK features
+
+Both SDKs provide:
+
+| Feature | Description |
+|---------|-------------|
+| Typed methods | Every endpoint has a corresponding method with typed parameters and return values |
+| Error handling | API errors are raised as typed exceptions with the error code and message |
+| Rate limit handling | Automatic retry with backoff when rate limited |
+| Pagination | Helper methods to iterate through paginated list endpoints |
+
+## Community SDKs
+
+Community-maintained SDKs are not officially supported but may be useful:
+
+- If you build an SDK for another language, reach out to [support](https://placeholder.plane3.com/support) to get it listed here.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="API introduction" icon="book" href="/api-reference/introduction">
+    Overview of the API, base URL, and core resources.
+  </Card>
+  <Card title="Authentication" icon="key" href="/api-reference/authentication">
+    Set up your API key to start using the SDK.
+  </Card>
+</Columns>

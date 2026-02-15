@@ -1,0 +1,93 @@
+---
+title: "Sharing"
+description: "Invite team members, share board links, and manage access with role-based permissions."
+---
+
+plane3 lets you share projects and boards with your team. You control who can access your work and what they can do through role-based permissions.
+
+## Inviting team members
+
+<Steps>
+  <Step title="Open sharing settings">
+    Click the **Share** button in the top bar of any board, or go to **Project settings** and select the **Members** tab.
+  </Step>
+  <Step title="Enter email addresses">
+    Type one or more email addresses. You can invite multiple people at once by separating addresses with commas.
+  </Step>
+  <Step title="Choose a role">
+    Select a role for the invited members. See the roles table below for the available options.
+  </Step>
+  <Step title="Send invitation">
+    Click **Invite**. Each person receives an email with a link to join the project. If they do not have a plane3 account, the link takes them through sign-up first.
+  </Step>
+</Steps>
+
+## Roles and permissions
+
+| Role | View boards | Edit objects | Manage members | Delete project |
+|------|-------------|-------------|----------------|----------------|
+| Viewer | Yes | No | No | No |
+| Editor | Yes | Yes | No | No |
+| Owner | Yes | Yes | Yes | Yes |
+
+<Note>
+  The person who creates a project is automatically the Owner. Each project must have at least one Owner.
+</Note>
+
+### Viewer
+
+Viewers can open boards, pan around the canvas, inspect objects, and see the node graph -- but they cannot make changes. Use this role for stakeholders who need to review work without editing it.
+
+### Editor
+
+Editors have full access to create, modify, and delete objects on any board in the project. They can generate 3D models, add annotations, edit node graphs, and export files. They cannot invite or remove other members.
+
+### Owner
+
+Owners have all Editor permissions plus the ability to manage team membership, change roles, and delete the project. A project can have multiple Owners.
+
+## Share links
+
+You can share a direct link to a specific board.
+
+1. Open the board you want to share.
+2. Click **Share** in the top bar.
+3. Copy the board link.
+
+Anyone with the link who is already a project member can open the board directly. If they are not a member, they see a request-access prompt.
+
+## Project-level vs board-level access
+
+Permissions are set at the **project level**. All members of a project can access every board within it. There is no per-board permission override.
+
+If you need to restrict access to specific boards, create separate projects for different access groups.
+
+## Changing roles
+
+Owners can change a member's role at any time.
+
+1. Go to **Project settings** and select the **Members** tab.
+2. Find the member you want to update.
+3. Select a new role from the dropdown next to their name.
+4. The change takes effect immediately.
+
+## Removing members
+
+Owners can remove members from a project.
+
+1. Go to **Project settings** and select the **Members** tab.
+2. Click the remove icon next to the member's name.
+3. Confirm the removal.
+
+The removed member immediately loses access to all boards in the project.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Collaboration overview" icon="users" href="/features/collaboration/overview">
+    Learn about real-time sync, presence, and how collaboration works.
+  </Card>
+  <Card title="Cursor chat" icon="comment" href="/features/collaboration/cursor-chat">
+    Send quick messages to teammates on the canvas.
+  </Card>
+</Columns>

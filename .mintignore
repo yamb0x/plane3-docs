@@ -5,3 +5,7 @@
 # Draft content
 drafts/
 *.draft.mdx
+
+# Project files that are not documentation
+AGENTS.md
+CONTRIBUTING.md

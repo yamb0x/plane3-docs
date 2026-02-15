@@ -1,0 +1,105 @@
+---
+title: "Create a photorealistic render"
+description: "Step-by-step guide to using the path tracer to produce a photorealistic image of your 3D model."
+---
+
+This tutorial walks you through the path tracer settings to produce a high-quality photorealistic render of a 3D model. You will set up the environment, configure the camera, and export the final image.
+
+<Steps>
+  <Step title="Select your model">
+    Click the model you want to render on the canvas. If you have multiple models on the board, make sure you select the specific one you want to focus on.
+  </Step>
+
+  <Step title="Open the path tracer">
+    Right-click the selected model and choose **Render**. The path tracer opens with your model centered in a 3D viewport. The renderer begins accumulating samples immediately with default settings.
+  </Step>
+
+  <Step title="Choose an HDRI environment">
+    In the render settings panel, find the **Environment** section and select an HDRI preset:
+
+    - **Outdoor** -- natural sunlight with sky. Good for architectural models, vehicles, and outdoor products.
+    - **Studio** -- controlled, even lighting. Good for product shots, small objects, and clean presentations.
+    - **Sunset** -- warm, low-angle lighting with golden tones. Good for organic models and dramatic presentations.
+
+    The environment determines the overall lighting mood and what reflects in shiny surfaces.
+  </Step>
+
+  <Step title="Adjust sun position">
+    If you selected an outdoor or sunset environment, adjust the sun:
+
+    - **Azimuth** -- controls the horizontal angle of the sun (the direction the light comes from)
+    - **Elevation** -- controls how high the sun is above the horizon
+
+    Lower elevations produce long, dramatic shadows. Higher elevations give even, overhead lighting.
+
+    <Tip>
+      For dramatic renders, set the elevation between 15 and 30 degrees. This creates long shadows and warm, golden light similar to golden hour photography.
+    </Tip>
+  </Step>
+
+  <Step title="Enable depth of field">
+    In the **Camera** section of the render settings:
+
+    1. Toggle **Depth of field** on
+    2. Set the **f-stop** value to control the amount of background blur:
+       - **f/1.4 - f/2.8** -- strong blur, only the focal point is sharp (good for close-up hero shots)
+       - **f/4 - f/8** -- moderate blur, subject is sharp with a softly blurred background
+       - **f/11 - f/22** -- minimal blur, most of the scene is in focus
+
+    The focal point defaults to the center of your model. Adjust it if you want to focus on a specific part.
+  </Step>
+
+  <Step title="Set the quality preset">
+    In the **Quality** section, select **Ultra**. This sets the renderer to accumulate 2048 samples, which produces a clean image with minimal noise.
+
+    Available presets:
+
+    | Preset | Samples | Best for |
+    |--------|---------|----------|
+    | Preview | 32 | Quick previews |
+    | Medium | 128 | Checking composition and lighting |
+    | High | 512 | Final renders for web use |
+    | Ultra | 2048 | Hero images, print, portfolio work |
+  </Step>
+
+  <Step title="Wait for convergence">
+    The path tracer progressively refines the image. A **sample counter** in the viewport shows how many samples have been accumulated out of the target.
+
+    Early samples appear noisy. As more samples accumulate, the image becomes smoother and more accurate. At Ultra quality, expect the render to take several minutes depending on scene complexity.
+
+    <Note>
+      You do not have to wait for full convergence. If the image looks clean enough at, say, 1200 out of 2048 samples, you can export early.
+    </Note>
+  </Step>
+
+  <Step title="Export the render">
+    Click **Export** in the path tracer toolbar. The render is saved as a PNG file at the current viewport resolution.
+
+    The exported image includes the alpha channel if the background is transparent, which is useful for compositing the render into other images or layouts.
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+<Accordion title="The render looks too dark">
+  Try switching to a brighter HDRI preset (Studio provides the most even lighting). You can also increase the sun elevation if using an outdoor environment.
+</Accordion>
+
+<Accordion title="There is too much noise even at high sample counts">
+  Complex transparent or reflective materials take more samples to resolve. Try increasing the quality preset or wait for more samples to accumulate.
+</Accordion>
+
+<Accordion title="The depth of field blur looks wrong">
+  Make sure the focal point is set correctly. If the wrong part of the model is in focus, adjust the focal distance in the camera settings.
+</Accordion>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Render settings reference" icon="sliders" href="/features/rendering/render-settings">
+    Full reference for all render configuration options.
+  </Card>
+  <Card title="Product visualization" icon="box" href="/guides/product-visualization">
+    Learn product-specific rendering techniques and lighting setups.
+  </Card>
+</Columns>

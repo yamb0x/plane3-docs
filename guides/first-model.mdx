@@ -1,0 +1,92 @@
+---
+title: "Create your first 3D model"
+description: "An end-to-end tutorial that walks you through generating a 3D model, inspecting it, retexturing, and exporting."
+---
+
+This tutorial takes you from an empty board to a finished, exported 3D model. You will generate a model from a text prompt, learn how to navigate around it, improve its textures, and download the result.
+
+<Steps>
+  <Step title="Create a project and board">
+    From your dashboard, click **New project** and give it a name. Open the project -- it starts with a default board. You can rename the board from the board switcher in the top bar.
+  </Step>
+
+  <Step title="Open the generate menu">
+    Double-click anywhere on the canvas to open the generate menu. Select **Text to 3D** if it is not already selected.
+  </Step>
+
+  <Step title="Enter a prompt">
+    Type a description of what you want to generate. Be specific about shape, material, and style. For example:
+
+    ```
+    medieval treasure chest with iron bands
+    ```
+
+    <Tip>
+      Good prompts include material details ("wooden", "metallic"), style cues ("low-poly", "stylized", "realistic"), and structural descriptors ("with rivets", "open lid"). Avoid vague terms like "cool" or "nice".
+    </Tip>
+
+    Select an AI service from the dropdown or leave the default, then click **Generate**.
+  </Step>
+
+  <Step title="Wait for generation">
+    Generation takes roughly 60 to 90 seconds depending on the AI service and server load. A progress indicator appears on the canvas while the model is being created.
+  </Step>
+
+  <Step title="Inspect the model">
+    Once the model appears, you can examine it from different angles:
+
+    - **Rotate the camera** -- press `Q` to rotate 90 degrees left, `E` to rotate 90 degrees right
+    - **Zoom** -- scroll up to zoom in, scroll down to zoom out
+    - **Pan** -- middle-click and drag, or hold `Space` and drag
+
+    Click the model to select it and see its properties in the right panel.
+  </Step>
+
+  <Step title="Retexture the model">
+    If the initial textures are not what you want, you can regenerate them:
+
+    1. Right-click the model to open the context menu
+    2. Select **Retexture**
+    3. Optionally enter a texture prompt to guide the style (for example, "weathered oak wood with dark iron fittings")
+    4. Wait for the retexturing to complete
+
+    <Tip>
+      You can retexture multiple times. Each run replaces the previous texture, so experiment until you get the look you want.
+    </Tip>
+  </Step>
+
+  <Step title="Export the model">
+    When you are satisfied with the result:
+
+    1. Right-click the model
+    2. Select **Export**
+    3. Choose **GLB** as the format (or glTF, OBJ, STL depending on your needs)
+    4. The file downloads to your computer
+
+    GLB is the most widely supported format and includes textures in a single file.
+  </Step>
+</Steps>
+
+## Prompt writing tips
+
+| Technique | Example | Why it helps |
+|-----------|---------|--------------|
+| Specify materials | "carved stone gargoyle" | Guides the texture generation toward the right surface look |
+| Mention style | "low-poly cartoon sword" | Controls the geometric complexity and visual style |
+| Describe structure | "open laptop with visible keyboard" | Gives the model clear geometric constraints |
+| Add context | "sci-fi control panel with glowing buttons" | Helps the AI choose appropriate details and lighting cues |
+
+<Note>
+  Different AI services interpret prompts differently. If the result does not match your intent, try switching the service in the generate menu dropdown.
+</Note>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="AI generation overview" icon="wand-magic-sparkles" href="/features/ai-generation/overview">
+    Learn about all available AI services and their strengths.
+  </Card>
+  <Card title="Build an AI pipeline" icon="diagram-project" href="/guides/ai-pipeline-basics">
+    Chain generation and retexturing into a repeatable pipeline using the node graph.
+  </Card>
+</Columns>

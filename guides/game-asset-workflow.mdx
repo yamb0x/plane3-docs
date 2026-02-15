@@ -1,0 +1,94 @@
+---
+title: "Game asset workflow"
+description: "Create game-ready 3D assets from AI generation through topology cleanup and export for use in game engines."
+---
+
+This tutorial covers the workflow for creating 3D assets suitable for real-time game engines like Unity, Unreal Engine, and Godot. You will generate a model, clean up its mesh, apply game-appropriate textures, and export in a format ready for your engine.
+
+<Steps>
+  <Step title="Generate a base model">
+    Start with either text-to-3D or image-to-3D generation:
+
+    - **Text-to-3D** -- double-click the canvas, type a description like "stylized medieval shield with crest", and click **Generate**
+    - **Image-to-3D** -- double-click the canvas, switch to Image to 3D, upload a concept art image, and click **Generate**
+
+    Wait for the model to appear on the canvas (60 to 90 seconds).
+
+    <Tip>
+      For game assets, include style keywords in your prompt that match your game's art direction: "low-poly", "stylized", "hand-painted", or "PBR realistic".
+    </Tip>
+  </Step>
+
+  <Step title="Remesh for clean topology">
+    AI-generated models often have irregular triangle meshes. Use Remesh to produce a cleaner mesh:
+
+    1. Right-click the model and select **Remesh**
+    2. Set a target polygon count appropriate for your use case (see the table below)
+    3. Run the remesh operation
+
+    <Note>
+      Remeshing simplifies geometry while preserving the overall shape. Some fine details may be lost at lower polygon counts -- preview the result before continuing.
+    </Note>
+  </Step>
+
+  <Step title="Apply game-appropriate textures">
+    Use Retexture to generate materials that fit your game's art style:
+
+    1. Right-click the model and select **Retexture**
+    2. Enter a prompt describing the surface style (for example, "hand-painted fantasy style" or "PBR metal with scratches and wear")
+    3. Wait for the retexture to complete
+
+    Review the result by rotating the model with `Q` and `E` to check all sides.
+  </Step>
+
+  <Step title="Check quality in the path tracer">
+    Before exporting, verify the model looks correct under different lighting:
+
+    1. Right-click the model and select **Render**
+    2. Orbit around the model in the path tracer viewport
+    3. Check for texture seams, missing surfaces, or geometry artifacts
+
+    This step is optional but helps catch issues before you import into your game engine.
+  </Step>
+
+  <Step title="Export for your game engine">
+    Right-click the model and select **Export**. Choose **GLB** as the format.
+
+    GLB is supported by all major game engines:
+
+    - **Unity** -- drag the GLB file into your Assets folder
+    - **Unreal Engine** -- use the import dialog or drag into the Content Browser
+    - **Godot** -- place the GLB file in your project directory and it auto-imports
+  </Step>
+</Steps>
+
+## Polygon count guidelines
+
+| Asset type | Target polygon count | Use case |
+|-----------|---------------------|----------|
+| Background prop | 500 - 2,000 | Objects the player rarely sees up close |
+| Interactive prop | 2,000 - 10,000 | Items the player picks up or examines |
+| Character | 10,000 - 30,000 | Player characters or important NPCs |
+| Hero asset | 30,000 - 100,000 | Main focal points, cutscene models |
+
+<Warning>
+  These are general guidelines. Your target counts depend on your game's platform and performance budget. Mobile games typically need lower counts than PC or console titles.
+</Warning>
+
+## Texture considerations
+
+- AI-generated textures are typically 1024x1024 or 2048x2048 pixels
+- For mobile games, consider downscaling textures to 512x512 after export
+- GLB exports include diffuse (albedo) textures embedded in the file
+- If your engine requires separate texture maps (normal, roughness, metallic), you may need to extract and process them in your engine's material editor
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Exporting" icon="file-export" href="/features/import-export/exporting">
+    Learn about all export formats and options.
+  </Card>
+  <Card title="AI generation" icon="wand-magic-sparkles" href="/features/ai-generation/overview">
+    Explore different AI services for generating models with varying styles and quality.
+  </Card>
+</Columns>

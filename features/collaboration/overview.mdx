@@ -1,0 +1,59 @@
+---
+title: "Real-time collaboration"
+description: "Work with your team simultaneously on the same board with live cursors, selections, and instant sync."
+---
+
+plane3 is built for teams working together on 3D content. Multiple users can open the same board and see each other's changes as they happen -- no saving, refreshing, or file merging required.
+
+## How it works
+
+Collaboration in plane3 is real-time by default. When you open a board that a teammate is already working on, you immediately see their cursor, selections, and any changes they make.
+
+The collaboration system uses two synchronization paths:
+
+- **Document state** -- Board structure, node graphs, annotations, and object properties sync through [Yjs](https://yjs.dev/) CRDTs (Conflict-free Replicated Data Types). CRDTs ensure that concurrent edits from multiple users converge to the same state without conflicts.
+- **Transform updates** -- Object position, rotation, and scale changes during drag operations sync through a fast last-writer-wins (LWW) path at 60fps. This keeps dragging responsive even with multiple collaborators.
+
+Both paths run over a single WebSocket connection per user. There is no polling or manual sync.
+
+## Presence system
+
+The presence system shows you who else is on the board and what they are doing.
+
+- **Cursor positions** -- Each user's cursor appears on the canvas with their name and a unique color. Cursors update at 60fps.
+- **Selection highlighting** -- When a teammate selects an object, you see a colored outline matching their cursor color.
+- **Active user list** -- The top bar shows avatars for all users currently on the board.
+
+<Note>
+  Presence data (cursors and selections) is ephemeral. It is not stored -- when a user leaves the board, their cursor and selection indicators disappear immediately.
+</Note>
+
+## What syncs in real time
+
+| Action | Sync behavior |
+|--------|--------------|
+| Add or delete objects | Appears/disappears for all users instantly |
+| Move, rotate, scale objects | 60fps LWW sync during drag, CRDT commit on release |
+| Generate a 3D model | Generation status and result visible to everyone |
+| Add annotations (sticky notes, sketches) | Visible to all users as created |
+| Edit node graph | Node and connection changes sync to all users |
+| Cursor position | 60fps broadcast to all users |
+| Cursor chat messages | Visible to all users in real time |
+
+## Browser compatibility
+
+Real-time collaboration works in any modern browser that supports WebSocket and WebGL. This includes recent versions of Chrome, Firefox, Safari, and Edge. No browser extensions or plugins are required.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Live cursors" icon="arrow-pointer" href="/features/collaboration/live-cursors">
+    Learn about cursor presence and selection indicators.
+  </Card>
+  <Card title="Cursor chat" icon="comment" href="/features/collaboration/cursor-chat">
+    Send quick messages attached to your cursor.
+  </Card>
+  <Card title="Sharing" icon="share-nodes" href="/features/collaboration/sharing">
+    Invite teammates and manage board permissions.
+  </Card>
+</Columns>

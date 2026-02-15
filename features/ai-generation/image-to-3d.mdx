@@ -1,0 +1,73 @@
+---
+title: "Image-to-3D"
+description: "Generate 3D models from reference images using AI services like Hunyuan3D v3, Trellis, TripoSR, InstantMesh, and Seed3D."
+---
+
+Image-to-3D lets you upload a reference image or use one already on your canvas and generate a 3D model from it. You can choose from several AI services, each with different speed and quality characteristics.
+
+## How to generate from an image
+
+<Steps>
+  <Step title="Open the generate menu">
+    Double-click anywhere on the canvas to open the generate menu.
+  </Step>
+  <Step title="Select Image to 3D">
+    Click the **Image to 3D** tab.
+  </Step>
+  <Step title="Provide a reference image">
+    You have two options:
+    - **Upload** -- Click the upload area and select an image file from your computer.
+    - **Use a canvas image** -- If you have an image reference on the canvas, select it first, then open the generate menu. The image is pre-filled automatically.
+  </Step>
+  <Step title="Choose a model">
+    Select an AI service from the dropdown. Each model produces different results. See the comparison table below for guidance.
+  </Step>
+  <Step title="Click Generate">
+    Click **Generate** to start. The duration depends on the model you selected.
+  </Step>
+</Steps>
+
+## Available models
+
+| Model | Duration | Best for |
+|-------|----------|----------|
+| Hunyuan3D v3 | 60-90 seconds | General-purpose generation with good texture quality. Default choice. |
+| Trellis | 2-3 minutes | Detailed geometry. Good when shape accuracy matters more than speed. |
+| TripoSR | ~30 seconds | Fast previews. Use when you want to quickly test whether an image works as a 3D reference. |
+| InstantMesh | ~60 seconds | Balanced speed and mesh quality for single-image reconstruction. |
+| Seed3D | ~2 minutes | Image-to-3D generation by ByteDance. Strong on organic shapes. |
+
+<Tip>
+  If you are unsure which model to use, start with **TripoSR** for a fast preview. If the shape looks right, regenerate with **Hunyuan3D v3** or **Trellis** for higher quality.
+</Tip>
+
+## Tips for reference images
+
+The input image has a significant impact on the output quality. Follow these guidelines for better results.
+
+- **Use a clean background.** A solid white or transparent background helps the model isolate the subject.
+- **Show the full object.** Avoid cropping. The model needs to see the entire shape to reconstruct it in 3D.
+- **Choose a 3/4 view.** An angled perspective that shows the front and one side gives the model more geometric information than a flat front view.
+- **Avoid heavy occlusion.** If parts of the object are hidden behind other objects, the model has to guess the missing geometry.
+- **Use consistent lighting.** Even, diffuse lighting produces cleaner textures than harsh directional light with strong shadows.
+
+## Using canvas image references
+
+If you already have image references on your canvas (dropped images or saved AI outputs), you can use them directly for generation.
+
+1. Select the image reference on the canvas.
+2. Double-click the canvas to open the generate menu.
+3. The selected image is automatically loaded into the Image to 3D tab.
+
+In the node graph, this creates a connection from the image reference's Load Image node to the generation node, linking the two objects in a single workflow.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Text-to-3D" icon="keyboard" href="/features/ai-generation/text-to-3d">
+    Generate models from text prompts instead of images.
+  </Card>
+  <Card title="AI services reference" icon="list" href="/features/ai-generation/ai-services">
+    Full reference of all AI services with capabilities and durations.
+  </Card>
+</Columns>

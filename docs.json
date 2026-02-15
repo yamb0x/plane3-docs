@@ -1,48 +1,114 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "plane3",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#6366F1",
+    "light": "#818CF8",
+    "dark": "#4F46E5"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
             "group": "Getting started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "overview",
+              "getting-started/quickstart",
+              "getting-started/interface-tour"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Workspace",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "workspace/canvas",
+              "workspace/keyboard-shortcuts"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Account",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "account/plans-and-billing",
+              "account/team-management"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Features",
+        "groups": [
+          {
+            "group": "AI generation",
+            "pages": [
+              "features/ai-generation/overview",
+              "features/ai-generation/text-to-3d",
+              "features/ai-generation/image-to-3d",
+              "features/ai-generation/ai-services"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Node graph",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "features/node-graph/overview",
+              "features/node-graph/nodes-reference",
+              "features/node-graph/connections",
+              "features/node-graph/pipelines"
+            ]
+          },
+          {
+            "group": "Collaboration",
+            "pages": [
+              "features/collaboration/overview",
+              "features/collaboration/live-cursors",
+              "features/collaboration/cursor-chat",
+              "features/collaboration/sharing"
+            ]
+          },
+          {
+            "group": "Annotations",
+            "pages": [
+              "features/annotations/sticky-notes",
+              "features/annotations/sketches",
+              "features/annotations/reference-images"
+            ]
+          },
+          {
+            "group": "Import and export",
+            "pages": [
+              "features/import-export/importing",
+              "features/import-export/exporting"
+            ]
+          },
+          {
+            "group": "Rendering",
+            "pages": [
+              "features/rendering/path-tracer",
+              "features/rendering/render-settings"
+            ]
+          },
+          {
+            "group": "Sketch to image",
+            "pages": [
+              "features/sketch-to-image/overview"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Tutorials",
+            "pages": [
+              "guides/first-model",
+              "guides/collaborative-review",
+              "guides/ai-pipeline-basics",
+              "guides/product-visualization",
+              "guides/game-asset-workflow",
+              "guides/photorealistic-render"
             ]
           }
         ]
@@ -51,18 +117,50 @@
         "tab": "API reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Overview",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "api-reference/authentication",
+              "api-reference/errors",
+              "api-reference/rate-limits",
+              "api-reference/sdks"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Projects",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/endpoint/list-projects",
+              "api-reference/endpoint/create-project",
+              "api-reference/endpoint/get-project"
+            ]
+          },
+          {
+            "group": "Models",
+            "pages": [
+              "api-reference/endpoint/list-models",
+              "api-reference/endpoint/get-model",
+              "api-reference/endpoint/delete-model"
+            ]
+          },
+          {
+            "group": "Generation",
+            "pages": [
+              "api-reference/endpoint/create-generation",
+              "api-reference/endpoint/get-generation"
+            ]
+          },
+          {
+            "group": "Rendering",
+            "pages": [
+              "api-reference/endpoint/create-render",
+              "api-reference/endpoint/get-render"
+            ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "api-reference/endpoint/list-webhooks",
+              "api-reference/endpoint/create-webhook"
             ]
           }
         ]
@@ -71,14 +169,14 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Community",
+          "href": "https://placeholder.plane3.com/community",
+          "icon": "discord"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Changelog",
+          "href": "https://placeholder.plane3.com/changelog",
+          "icon": "list"
         }
       ]
     }
@@ -91,32 +189,21 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "https://placeholder.plane3.com/support"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Open app",
+      "href": "https://placeholder.plane3.com/app"
     }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://placeholder.plane3.com/x",
+      "github": "https://placeholder.plane3.com/github",
+      "discord": "https://placeholder.plane3.com/discord"
     }
-  }
+  },
+  "openapi": ["api-reference/openapi.json"]
 }

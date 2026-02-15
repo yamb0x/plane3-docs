@@ -1,0 +1,101 @@
+---
+title: "Interface tour"
+description: "A walkthrough of the plane3 interface -- the canvas, panels, toolbars, and menus you use every day."
+---
+
+This page covers each area of the plane3 interface so you know where to find things.
+
+## Top bar
+
+The top bar spans the full width of the screen and contains:
+
+- **Project name** -- click to rename or return to the project dashboard
+- **Board switcher** -- a dropdown to switch between boards in the current project, or create a new board
+- **View toggle** -- switch between **Canvas** view (the default board-level interaction) and **Graph** view (the node graph editor)
+- **Share button** -- invite collaborators to the current board or copy a share link
+
+## Canvas
+
+The canvas is the main working area. It displays an infinite isometric grid where your 3D objects, annotations, and references live.
+
+Key characteristics:
+
+- **Isometric projection** -- the camera uses a fixed orthographic angle with no perspective distortion, so parallel lines stay parallel
+- **Infinite grid** -- you can pan in any direction without hitting boundaries
+- **3D objects** -- generated models, imported files, and duplicates all appear as interactive objects on the canvas
+- **Annotations** -- sticky notes, sketches, and image references appear alongside your 3D objects
+
+For details on camera controls, zoom, and rotation, see [Canvas](/workspace/canvas).
+
+## Left panel: object manager
+
+The left panel shows a list of every object on the current board. Each entry displays the object name and type. You can:
+
+- **Click** an entry to select that object on the canvas
+- **Rename** objects by double-clicking the name
+- **Reorder** or organize your object list
+
+The object manager helps you find and select objects quickly, especially on boards with many items.
+
+## Right panel: context panel
+
+The right panel changes based on what you have selected:
+
+- **Nothing selected** -- shows board-level settings
+- **3D object selected** -- shows object properties (position, rotation, scale), material information, and available actions like retexture and export
+- **Annotation selected** -- shows annotation content and editing options
+- **Generation in progress** -- shows generation settings, service selection, and progress
+
+## Bottom toolbar
+
+The bottom toolbar contains mode selectors for your current tool:
+
+| Tool | Description |
+|------|-------------|
+| **Select** | The default mode. Click to select objects, drag to move them. |
+| **Sticky note** (`C`) | Click the canvas to place a sticky note for feedback or comments. |
+| **Sketch** (`P`) | Draw freeform sketches directly on the canvas. |
+| **Image reference** | Place a reference image on the canvas for visual context. |
+
+Click a tool to activate it, or use the keyboard shortcut. Press `Escape` to return to the select tool.
+
+## Generate menu
+
+Double-click anywhere on the canvas to open the generate menu. It provides two generation modes:
+
+<Columns cols={2}>
+  <Card title="Text to 3D" icon="keyboard">
+    Type a text description and plane3 generates a 3D model from it. You can choose which AI service to use.
+  </Card>
+  <Card title="Image to 3D" icon="image">
+    Upload or paste a reference image and plane3 generates a 3D model based on it.
+  </Card>
+</Columns>
+
+The generate menu also lets you select an AI service (Hunyuan3D, Trellis, TripoSR, Meshy-5, and others) and configure service-specific settings before starting generation.
+
+## View toggle: canvas vs. graph
+
+You can switch between two views using the toggle in the top bar:
+
+<Tabs>
+  <Tab title="Canvas view">
+    The default board-level experience. You interact directly with 3D objects on the isometric grid. This view is designed for straightforward tasks: generating models, arranging assets, adding annotations, and exporting.
+  </Tab>
+  <Tab title="Graph view">
+    The node graph editor. You build visual pipelines by connecting nodes that represent AI generation, texturing, mesh operations, and other processing steps. This view is for advanced workflows where you want to chain operations together.
+  </Tab>
+</Tabs>
+
+Your objects and data are shared between both views -- switching views does not change your content, just how you interact with it.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Canvas controls" icon="arrows-up-down-left-right" href="/workspace/canvas">
+    Learn the camera, selection, and transform controls in detail.
+  </Card>
+  <Card title="Keyboard shortcuts" icon="keyboard" href="/workspace/keyboard-shortcuts">
+    See every shortcut available in plane3.
+  </Card>
+</Columns>

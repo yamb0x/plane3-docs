@@ -1,0 +1,89 @@
+---
+title: "Set up product visualization"
+description: "Use plane3 to import a product model, improve its materials, and render a photorealistic product image."
+---
+
+This tutorial walks you through creating a product visualization -- from importing your model to exporting a finished render suitable for marketing materials or e-commerce listings.
+
+<Steps>
+  <Step title="Import your product model">
+    Drag and drop your model file (GLB, OBJ, or FBX) onto the canvas. The model appears on the board after a short processing step.
+
+    You can also use **File > Import** from the top menu to browse for files on your computer.
+
+    <Note>
+      GLB is recommended for import because it bundles geometry and textures in a single file. OBJ and FBX imports may require separate texture files.
+    </Note>
+  </Step>
+
+  <Step title="Improve materials with retexture">
+    If your model's textures need refinement or a different look:
+
+    1. Right-click the model and select **Retexture**
+    2. Enter a texture prompt that describes the surface finish you want (for example, "brushed aluminum with matte finish")
+    3. Wait for retexturing to complete
+
+    Skip this step if your imported model already has production-ready materials.
+  </Step>
+
+  <Step title="Open the path tracer">
+    Right-click the model and select **Render**. The path tracer opens with your model centered in the viewport.
+
+    The path tracer renders your model with physically accurate lighting, reflections, and shadows.
+  </Step>
+
+  <Step title="Choose the studio HDRI preset">
+    In the render settings panel, find the **Environment** section and select the **Studio** HDRI preset. This provides even, neutral lighting that works well for product photography.
+
+    <Tip>
+      The Studio preset mimics a product photography lightbox. For outdoor products (furniture, vehicles), try the Outdoor preset instead for natural lighting with a visible sky.
+    </Tip>
+  </Step>
+
+  <Step title="Adjust the camera">
+    Set up your shot by adjusting camera settings in the render panel:
+
+    - **Focal length** -- use 50mm to 85mm for a natural product photography look. Lower values (35mm) add slight perspective exaggeration; higher values (100mm+) flatten the image.
+    - **Depth of field** -- enable this to blur the background and draw attention to the product. Start with a moderate f-stop (f/4 to f/8) and adjust.
+    - **Position** -- orbit the camera around the model by dragging in the viewport to find the best angle.
+  </Step>
+
+  <Step title="Set render quality">
+    In the quality settings, choose **High** or **Ultra**:
+
+    - **High** -- good balance of quality and render time, suitable for most product images
+    - **Ultra** -- maximum quality with 2048 samples, best for hero images and print materials
+
+    Higher quality settings take longer to converge but produce cleaner images with less noise.
+  </Step>
+
+  <Step title="Wait for convergence and export">
+    The path tracer progressively refines the image. Watch the sample counter in the viewport -- the image becomes cleaner as more samples accumulate.
+
+    Once you are satisfied with the quality, click **Export** to save the render as a PNG file.
+  </Step>
+</Steps>
+
+## Lighting tips for product shots
+
+| Product type | Recommended environment | Camera settings |
+|-------------|------------------------|-----------------|
+| Small objects (jewelry, electronics) | Studio HDRI | 85mm focal length, shallow depth of field |
+| Furniture | Outdoor or Studio HDRI | 50mm focal length, moderate depth of field |
+| Apparel and accessories | Studio HDRI | 50mm focal length, full depth of field |
+| Vehicles | Outdoor HDRI | 35mm focal length, moderate depth of field |
+
+<Tip>
+  For transparent or reflective products (glass bottles, chrome objects), the Studio HDRI preset provides clean reflections. You can adjust the HDRI rotation to control where highlights appear on the surface.
+</Tip>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Path tracer" icon="image" href="/features/rendering/path-tracer">
+    Learn about all path tracer features and settings.
+  </Card>
+  <Card title="Render settings" icon="sliders" href="/features/rendering/render-settings">
+    Detailed reference for every render configuration option.
+  </Card>
+</Columns>

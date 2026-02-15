@@ -1,0 +1,86 @@
+---
+title: "Importing"
+description: "Bring 3D files into plane3 by dragging and dropping GLB, glTF, OBJ, FBX, and STL files onto the canvas."
+---
+
+import SupportedFormats from '/snippets/supported-formats.mdx';
+
+You can import 3D files into plane3 by dragging them onto the canvas. The system detects the format, converts the file to an internal representation, and places the model on the board.
+
+## How to import
+
+Drag one or more 3D files from your file manager onto the canvas. Each file is processed independently and appears as a separate object.
+
+You can also import files from the right panel by clicking **Import model** and selecting a file from your computer.
+
+## Supported formats
+
+<SupportedFormats />
+
+## Processing pipeline
+
+When you import a file, plane3 runs it through several processing steps.
+
+<Steps>
+  <Step title="Format detection">
+    The system identifies the file format by extension and file header. Supported formats are processed; unsupported formats are rejected with an error message.
+  </Step>
+  <Step title="Conversion to canonical GLB">
+    All imported files are converted to GLB internally. This normalization step ensures consistent handling regardless of the original format. For FBX files, materials are converted to a PBR representation.
+  </Step>
+  <Step title="Mesh and texture extraction">
+    Geometry data, UV coordinates, and texture maps are extracted from the converted file. Each texture is stored as a separate asset linked to the mesh.
+  </Step>
+  <Step title="UV generation">
+    If the imported mesh does not have UV coordinates, plane3 generates them automatically using the built-in UV unwrap operation. This ensures the model can receive textures from AI services.
+  </Step>
+  <Step title="Thumbnail generation">
+    A thumbnail image is rendered for the object to display in the board overview and object list.
+  </Step>
+</Steps>
+
+## Multi-object files
+
+OBJ files can contain multiple named objects. When you import a multi-object OBJ file, plane3 preserves the sub-objects within a single group on the canvas. Each sub-object is accessible in the node graph as a separate mesh output.
+
+For other formats, each file produces one object on the canvas regardless of internal structure.
+
+## Node graph result
+
+Importing a file creates a node graph with:
+
+- An **Original Model** node containing the raw imported mesh
+- An **Output** node that displays the model on the canvas
+
+You can build on this graph by adding AI operations (retexturing, remeshing, refinement) downstream of the Original Model node.
+
+## File size and limits
+
+<Note>
+  Maximum import file size depends on your plan. Check [plans and billing](/account/plans-and-billing) for current limits. Large files with high polygon counts may take longer to process.
+</Note>
+
+## Troubleshooting
+
+<Accordion title="My import failed with a format error">
+  Verify that your file has a supported extension (`.glb`, `.gltf`, `.obj`, `.fbx`, `.stl`). If the file is a glTF with external references, make sure the `.bin` and texture files are in the same directory or bundled together.
+</Accordion>
+
+<Accordion title="Textures are missing after import">
+  Some formats store texture references as file paths. If the texture files are not bundled with the model (common with OBJ and glTF), the import may not find them. Try exporting from your 3D tool as GLB, which embeds all textures in a single file.
+</Accordion>
+
+<Accordion title="The model appears with no UV coordinates">
+  plane3 generates UVs automatically during import if none are present. If the generated UVs do not look right, you can re-run the UV Unwrap node in the graph view with different settings.
+</Accordion>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Exporting" icon="file-export" href="/features/import-export/exporting">
+    Learn how to export models from plane3.
+  </Card>
+  <Card title="AI services" icon="wand-magic-sparkles" href="/features/ai-generation/ai-services">
+    Apply AI operations to your imported models.
+  </Card>
+</Columns>

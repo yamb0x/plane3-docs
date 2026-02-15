@@ -1,0 +1,105 @@
+---
+title: "Rate limits"
+description: "Request rate limits, generation concurrency limits, and rate limit headers for the plane3 API."
+---
+
+The plane3 API enforces rate limits to maintain service stability. Limits vary by plan and endpoint type.
+
+## Request rate limits
+
+General API request limits per minute:
+
+| Plan | Requests per minute |
+|------|-------------------|
+| Free | 100 |
+| Pro | 1,000 |
+| Team | 5,000 |
+
+These limits apply to all standard API endpoints (projects, models, webhooks, and status queries).
+
+## Generation concurrency limits
+
+AI generation and render endpoints have separate concurrency limits -- the maximum number of jobs that can run at the same time:
+
+| Plan | Concurrent generation jobs | Concurrent render jobs |
+|------|---------------------------|----------------------|
+| Free | 10 | 10 |
+| Pro | 50 | 50 |
+| Team | 200 | 200 |
+
+Submitting a job beyond your concurrency limit returns a `429 Too Many Requests` error. Wait for existing jobs to complete before submitting new ones.
+
+## Rate limit headers
+
+Every API response includes headers that tell you your current rate limit status:
+
+| Header | Description |
+|--------|-------------|
+| `X-RateLimit-Limit` | The maximum number of requests allowed per minute for your plan |
+| `X-RateLimit-Remaining` | The number of requests remaining in the current window |
+| `X-RateLimit-Reset` | The UTC timestamp (in seconds since epoch) when the rate limit window resets |
+
+Example response headers:
+
+```
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 847
+X-RateLimit-Reset: 1705312245
+```
+
+## Handling rate limits
+
+When you exceed the rate limit, the API returns a `429 Too Many Requests` response:
+
+```json
+{
+  "error": {
+    "code": "rate_limited",
+    "message": "Rate limit exceeded. Retry after the reset timestamp."
+  }
+}
+```
+
+To handle rate limits in your code:
+
+1. Check the `X-RateLimit-Remaining` header before making requests
+2. If you receive a `429` response, read the `X-RateLimit-Reset` header
+3. Wait until the reset timestamp before retrying
+4. Use exponential backoff if you are consistently hitting limits
+
+<CodeGroup>
+```javascript JavaScript
+async function requestWithRateLimit(url, options) {
+  const response = await fetch(url, options);
+
+  if (response.status === 429) {
+    const resetTime = response.headers.get("X-RateLimit-Reset");
+    const waitMs = (parseInt(resetTime) * 1000) - Date.now();
+    await new Promise((resolve) => setTimeout(resolve, Math.max(waitMs, 0)));
+    return fetch(url, options);
+  }
+
+  return response;
+}
+```
+
+```python Python
+import time
+import requests
+
+def request_with_rate_limit(url, headers):
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 429:
+        reset_time = int(response.headers.get("X-RateLimit-Reset", 0))
+        wait_seconds = max(reset_time - time.time(), 0)
+        time.sleep(wait_seconds)
+        return requests.get(url, headers=headers)
+
+    return response
+```
+</CodeGroup>
+
+<Tip>
+  If your application makes many API calls, track the `X-RateLimit-Remaining` header proactively and throttle your requests before hitting the limit rather than reacting to `429` errors.
+</Tip>

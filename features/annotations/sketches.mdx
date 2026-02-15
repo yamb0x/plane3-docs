@@ -1,0 +1,73 @@
+---
+title: "Sketches"
+description: "Draw freehand on the canvas ground plane to mark up areas, annotate objects, and communicate visually with your team."
+---
+
+The sketch tool lets you draw freehand strokes directly on the canvas ground plane. Use it to circle areas of interest, mark up objects for revision, or sketch out spatial ideas during collaborative sessions.
+
+## Using the sketch tool
+
+<Steps>
+  <Step title="Activate the tool">
+    Press `P` on your keyboard to activate the sketch tool. Your cursor changes to a pen icon.
+  </Step>
+  <Step title="Draw on the canvas">
+    Click and drag on the canvas to draw freehand strokes. Strokes are drawn on the ground plane of the 3D scene.
+  </Step>
+  <Step title="Change color or size">
+    While the sketch tool is active, use the toolbar options to select a pen color and brush size. Changes apply to the next stroke you draw.
+  </Step>
+  <Step title="Erase strokes">
+    Switch to the eraser tool in the sketch toolbar. Draw over existing strokes to erase them. The eraser splits strokes where you cross them, so you can remove part of a stroke without deleting the whole thing.
+  </Step>
+  <Step title="Deactivate">
+    Press `P` again or press **Escape** to exit the sketch tool and return to the default selection tool.
+  </Step>
+</Steps>
+
+## Stroke grouping
+
+Strokes drawn within 5 seconds of each other are automatically grouped into a single sketch object. This means a quick burst of marks -- like circling an area and adding an arrow -- becomes one selectable unit on the canvas.
+
+After the 5-second window, new strokes start a new sketch object. You can move, select, or delete each sketch object independently.
+
+## Pen options
+
+| Option | Description |
+|--------|-------------|
+| Color | Choose from a set of predefined pen colors. |
+| Brush size | Adjust the stroke width. Multiple sizes are available from thin lines to thick markers. |
+| Eraser | Switch to eraser mode to remove strokes. The eraser splits strokes at the intersection point. |
+
+## Real-time sync
+
+All sketches sync to collaborators on the board in real time.
+
+| Action | Sync behavior |
+|--------|--------------|
+| Draw stroke | Appears for all users as you draw |
+| Erase | Removed for all users immediately |
+| Move sketch object | Position updates during drag |
+| Delete sketch object | Removed for all users immediately |
+
+## Use cases
+
+- **Markup and review** -- Circle problem areas, draw arrows pointing to specific details, underline important sections.
+- **Spatial planning** -- Sketch rough layouts or positions before committing to 3D object placement.
+- **Visual communication** -- Draw diagrams, flow arrows, or boundaries during collaborative sessions.
+- **Annotation complement** -- Combine sketches with [sticky notes](/features/annotations/sticky-notes) for annotated feedback.
+
+<Note>
+  Sketches are drawn on the ground plane, not in 3D space. They are always visible from the default camera angle. Rotating the camera to extreme angles may make sketches appear foreshortened.
+</Note>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Sticky notes" icon="note-sticky" href="/features/annotations/sticky-notes">
+    Add text comments to the canvas.
+  </Card>
+  <Card title="Reference images" icon="image" href="/features/annotations/reference-images">
+    Drop images onto the canvas as visual references.
+  </Card>
+</Columns>

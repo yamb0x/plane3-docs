@@ -1,0 +1,83 @@
+---
+title: "Reference images"
+description: "Drop images onto the canvas as floating cards for mood boards, design references, and AI generation inputs."
+---
+
+Image references are images placed directly on the canvas as floating cards. Use them for mood boards, design direction, visual feedback, or as direct inputs to AI generation.
+
+## Adding an image reference
+
+You can add images to the canvas in two ways.
+
+<Tabs>
+  <Tab title="Drag and drop">
+    Drag an image file (PNG, JPEG, or WebP) from your file manager onto the canvas. The image appears as a floating card at the drop location.
+  </Tab>
+  <Tab title="Right panel">
+    Click the **Add image** option in the right panel. Browse your files and select an image. The image is placed at the center of your current viewport.
+  </Tab>
+</Tabs>
+
+## Working with image references
+
+Once placed, image references behave like any other object on the canvas.
+
+- **Move** -- Click and drag to reposition the image anywhere on the canvas.
+- **Select** -- Click the image to select it and view its properties in the right panel.
+- **Delete** -- Select the image and press **Delete** or **Backspace** to remove it.
+
+Image references are flat cards that float above the ground plane. They do not have 3D geometry -- they are display-only on the canvas.
+
+## Using images for AI generation
+
+Image references can serve as inputs for image-to-3D generation. There are two ways to use them.
+
+### From the canvas
+
+1. Select the image reference on the canvas.
+2. Double-click the canvas to open the generate menu.
+3. The Image to 3D tab is pre-populated with the selected image.
+4. Choose a model and click **Generate**.
+
+### From the node graph
+
+In the graph view, you can connect an image reference to AI generation nodes directly.
+
+1. Switch to the graph view.
+2. The image reference has a **Load Image** node.
+3. Drag a wire from the Load Image output to the IMAGE input of any image-to-3D node (Hunyuan3D Image, Trellis, TripoSR, InstantMesh, or Seed3D).
+
+When you drag a connection from an image reference to a node on a different object, the two workflows merge into one graph. The image reference becomes part of the generation pipeline.
+
+<Tip>
+  Place several reference images on your canvas as a mood board. When you find one that matches your vision, connect it directly to a generation node to create a 3D model from it.
+</Tip>
+
+## Real-time sync
+
+Image references sync to all collaborators on the board.
+
+| Action | Sync behavior |
+|--------|--------------|
+| Add image | Appears for all users immediately |
+| Move | Position updates during drag |
+| Delete | Removed for all users immediately |
+
+## Supported image formats
+
+| Format | Supported |
+|--------|-----------|
+| PNG | Yes |
+| JPEG | Yes |
+| WebP | Yes |
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Image-to-3D" icon="wand-magic-sparkles" href="/features/ai-generation/image-to-3d">
+    Generate 3D models from your reference images.
+  </Card>
+  <Card title="Sticky notes" icon="note-sticky" href="/features/annotations/sticky-notes">
+    Add text annotations to the canvas.
+  </Card>
+</Columns>

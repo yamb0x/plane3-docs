@@ -1,0 +1,77 @@
+---
+title: "Exporting"
+description: "Export 3D models from plane3 as GLB, glTF, OBJ, or STL files with quality presets."
+---
+
+You can export any 3D object from your canvas as a downloadable file. Choose from multiple formats and quality presets depending on your downstream needs.
+
+## How to export
+
+<Steps>
+  <Step title="Select the object">
+    Click the 3D model you want to export on the canvas.
+  </Step>
+  <Step title="Open the export dialog">
+    Right-click the object and select **Export** from the context menu. The export dialog opens.
+  </Step>
+  <Step title="Choose a format">
+    Select your target format from the dropdown. Available options are GLB, glTF, OBJ (with MTL and textures), and STL.
+  </Step>
+  <Step title="Select a quality preset">
+    Choose a quality preset that controls mesh optimization. See the presets table below.
+  </Step>
+  <Step title="Download">
+    Click **Export**. The file downloads to your default download directory.
+  </Step>
+</Steps>
+
+## Available formats
+
+| Format | Textures included | Notes |
+|--------|-------------------|-------|
+| GLB | Yes | Binary glTF. Single file with embedded textures. Best for most workflows. |
+| glTF | Yes | JSON-based with separate `.bin` and texture files. Bundled as a ZIP download. |
+| OBJ | Yes | Wavefront OBJ with MTL material file and texture images. Bundled as a ZIP download. |
+| STL | No | Geometry only. No materials, textures, or UV data. Use for 3D printing. |
+
+## Quality presets
+
+| Preset | Description |
+|--------|-------------|
+| Original | Exports the mesh as-is with no optimization. Full polygon count and original textures. |
+| Optimized | Reduces polygon count while preserving visual quality. Textures are compressed. Good for real-time applications. |
+| Lightweight | Aggressive polygon reduction and texture compression. Smallest file size. Suitable for web previews and thumbnails. |
+
+<Tip>
+  Use **Original** when you need the full-quality mesh for further editing in another 3D tool. Use **Optimized** for game engines and real-time renderers. Use **Lightweight** for web embedding or quick sharing.
+</Tip>
+
+## Multi-file exports
+
+Formats that produce multiple files (glTF and OBJ) are automatically bundled into a ZIP archive. The ZIP contains:
+
+- **glTF export** -- The `.gltf` JSON file, one or more `.bin` buffer files, and all referenced texture images.
+- **OBJ export** -- The `.obj` geometry file, the `.mtl` material file, and all referenced texture images.
+
+## Texture handling
+
+During export, plane3 merges all texture layers (albedo, normal, roughness, metallic) back into the output file. If the object went through AI retexturing or PBR estimation, the generated textures are included in the export.
+
+For STL exports, textures are discarded since the format only supports geometry.
+
+## Exporting pipeline results
+
+When you export an object that was built through a node graph pipeline, the export uses the **materialized output** -- the final result of the last pipeline run. If you have draft (un-run) nodes downstream, they are not reflected in the export.
+
+Make sure to run your pipeline to completion before exporting to get the latest result.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Importing" icon="file-import" href="/features/import-export/importing">
+    Learn how to bring 3D files into plane3.
+  </Card>
+  <Card title="Path tracer" icon="image" href="/features/rendering/path-tracer">
+    Render photorealistic images of your models before exporting.
+  </Card>
+</Columns>

@@ -1,0 +1,74 @@
+---
+title: "AI services reference"
+description: "Complete reference of all AI services available in plane3 for generation, retexturing, mesh operations, and material estimation."
+---
+
+import AiServicesTable from '/snippets/ai-services-table.mdx';
+
+plane3 integrates multiple AI services for 3D generation and processing. This page lists every available service along with local operations that run directly in your browser.
+
+## Service overview
+
+<AiServicesTable />
+
+## Generation services
+
+### Text-to-3D
+
+**Hunyuan3D v3** generates a 3D model from a text description. It produces textured meshes with reasonable geometry in 60 to 90 seconds. This is the default and only text-to-3D model currently available.
+
+### Image-to-3D
+
+Five models are available for generating 3D models from reference images.
+
+- **Hunyuan3D v3** -- General-purpose image-to-3D with good texture quality. 60-90 seconds.
+- **Trellis** -- Produces detailed geometry at the cost of longer generation time. 2-3 minutes.
+- **TripoSR** -- The fastest option at around 30 seconds. Useful for quick previews before committing to a higher-quality model.
+- **InstantMesh** -- Balanced single-image reconstruction. Around 60 seconds.
+- **Seed3D** -- ByteDance's image-to-3D service. Performs well on organic shapes. Around 2 minutes.
+
+## AI 3D operations
+
+These services operate on existing 3D meshes rather than generating from scratch.
+
+### Retexturing
+
+**Meshy-5** generates new textures for an existing mesh. You provide a mesh and optionally a text prompt describing the desired appearance. The service replaces the existing texture while preserving the geometry. Typical duration is 3 to 5 minutes.
+
+### Remeshing
+
+**Meshy-5** regenerates the mesh topology of an existing model. This is useful when a generated model has messy geometry -- overlapping faces, non-manifold edges, or uneven triangle distribution. The output has cleaner topology while preserving the overall shape. Typical duration is 3 to 5 minutes.
+
+### Mesh refinement
+
+**UltraShape** refines mesh geometry using a reference image as guidance. You provide an existing mesh and an image showing the desired shape. The service adjusts the mesh vertices to better match the reference. Typical duration is 3 to 5 minutes.
+
+### PBR estimation
+
+**PBR Playground** estimates physically-based rendering material maps from a single image. Given a texture image, it produces albedo, normal, roughness, and metallic maps. These maps can be applied to a mesh for more realistic rendering. Typical duration is 30 to 60 seconds.
+
+## Local WASM operations
+
+These operations run locally in your browser using WebAssembly. They do not require a network connection and complete in seconds.
+
+| Operation | Description |
+|-----------|-------------|
+| Quad remesh | Converts a triangle mesh to a quad-dominant mesh with even topology. |
+| UV unwrap | Generates UV coordinates for a mesh that lacks them. Required before applying textures. |
+| Subdivide | Increases mesh resolution by subdividing each face. Useful before mesh refinement. |
+| Smooth | Applies Laplacian smoothing to reduce surface noise and sharp edges. |
+
+<Note>
+  Local operations appear as nodes in the node graph and can be chained with AI services in the same pipeline. For example, you can subdivide a mesh, then refine it with UltraShape, then estimate PBR materials.
+</Note>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Node graph overview" icon="diagram-project" href="/features/node-graph/overview">
+    Learn how to chain these services into visual pipelines.
+  </Card>
+  <Card title="Nodes reference" icon="list" href="/features/node-graph/nodes-reference">
+    See the complete list of node types available in the graph editor.
+  </Card>
+</Columns>

@@ -1,0 +1,74 @@
+---
+title: "Path tracer"
+description: "Render photorealistic images of your 3D scenes with the built-in progressive path tracer."
+---
+
+plane3 includes a built-in path tracer for rendering photorealistic images of your 3D models. It runs in the browser and produces progressive results -- the image refines over time as more light samples are calculated.
+
+## Opening the path tracer
+
+1. Select one or more objects on the canvas (or select none to render the full scene).
+2. Click the **Render** button in the top bar, or right-click and select **Render**.
+3. The path tracer opens in a modal with its own viewport and controls.
+
+## How it works
+
+The path tracer simulates light bouncing through the scene. It starts with a noisy image and progressively cleans it up as more samples accumulate. You can watch the image refine in real time.
+
+Each quality preset controls how many samples are computed. Higher sample counts produce cleaner images but take longer.
+
+## Quality presets
+
+| Preset | Samples | Best for |
+|--------|---------|----------|
+| Preview | 32 | Quick checks. Noisy but fast. Results in seconds. |
+| Medium | 128 | Good balance of quality and speed. Suitable for review. |
+| High | 512 | Clean renders with minimal noise. Good for presentations. |
+| Ultra | 2048 | Maximum quality. Use for final output images. |
+
+## Lighting
+
+### HDRI environments
+
+The path tracer uses HDRI (High Dynamic Range Image) environment maps for lighting. Five presets are included:
+
+- **Studio** -- Controlled studio lighting with soft shadows.
+- **Outdoor** -- Natural daylight with blue sky.
+- **Sunset** -- Warm directional light with long shadows.
+- **Warehouse** -- Industrial interior with overhead lighting.
+- **Night** -- Dark environment with subtle ambient light.
+
+You can toggle the HDRI between being used only for lighting or also visible as the background. See [render settings](/features/rendering/render-settings) for all environment controls.
+
+### Sun light
+
+A directional sun light supplements the HDRI environment. You can adjust its azimuth, elevation, color, intensity, and shadow softness from the settings panel.
+
+## Camera controls
+
+The path tracer has its own camera separate from the canvas viewport.
+
+- **Orbit** -- Click and drag to rotate the camera around the subject.
+- **Pan** -- Middle-click or Shift+drag to move the camera laterally.
+- **Zoom** -- Scroll to move closer or farther from the subject.
+- **Focal length** -- Adjust from 14mm (wide angle) to 200mm (telephoto).
+- **Depth of field** -- Enable DOF and adjust the f-stop to control background blur. Lower f-stop values produce more blur.
+
+## Clay mode
+
+Toggle **Clay mode** to render all objects with a uniform matte material, removing textures and colors. This is useful for evaluating form, shape, and composition without the distraction of surface detail.
+
+## Exporting renders
+
+Click **Export as PNG** to save the current render to your computer. The exported image matches the resolution of the render viewport. For higher resolution, resize the render modal before exporting.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Render settings" icon="sliders" href="/features/rendering/render-settings">
+    Full reference for all render configuration options.
+  </Card>
+  <Card title="Exporting models" icon="file-export" href="/features/import-export/exporting">
+    Export your 3D models as files.
+  </Card>
+</Columns>

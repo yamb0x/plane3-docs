@@ -1,0 +1,68 @@
+---
+title: "Node graph"
+description: "A visual workflow editor that shows how 3D assets are created and transformed, letting you build repeatable AI pipelines."
+---
+
+The node graph is a visual workflow editor that represents every operation performed on a 3D asset. Think of it as the recipe view -- it records how an object was made and lets you modify or replay that process.
+
+## Canvas view vs graph view
+
+plane3 has two views you can switch between at any time using the view toggle in the top bar.
+
+<Columns cols={2}>
+  <Card title="Canvas view" icon="cube">
+    The default 3D workspace. You see objects on the isometric canvas and interact with them directly -- moving, selecting, generating, and annotating.
+  </Card>
+  <Card title="Graph view" icon="diagram-project">
+    A 2D node editor showing the pipeline behind the currently selected object. Nodes represent operations, and wires between them define data flow.
+  </Card>
+</Columns>
+
+Every action you take on the canvas -- generating a model, retexturing it, refining the mesh -- automatically builds a node graph in the background. You do not need to use the graph view to benefit from it, but switching to it gives you full control over the pipeline.
+
+## Core concepts
+
+### Nodes
+
+A node is a single operation in the pipeline. Each node has typed input and output ports. Examples include a Prompt node (outputs text), a Hunyuan3D generation node (takes text or image input, outputs a mesh), and a Retexture node (takes a mesh, outputs a retextured mesh).
+
+### Wires
+
+Wires connect an output port on one node to an input port on another. They define the flow of data through the pipeline. Wires enforce type compatibility -- you cannot connect a text output to a mesh input.
+
+### Groups
+
+When you import a 3D file or generate an object, plane3 wraps it in a group container in the graph. The group holds the object's Original Model node and any downstream operations. Groups keep workflows organized when a board has many objects.
+
+## Draft vs materialized lifecycle
+
+Nodes in a pipeline have two states.
+
+- **Draft** -- The node has been configured but not yet executed. Its output is empty or shows a preview placeholder. Draft nodes have a dashed border.
+- **Materialized** -- The node has been executed and its output contains real data. Materialized nodes have a solid border.
+
+When you click **Run** on a node, it and all its upstream dependencies execute in order. Once a node is materialized, changing its parameters resets it to draft state until you run it again.
+
+## Automatic graph building
+
+You do not need to manually create a graph before using it. Every board-level action that produces or modifies a 3D asset builds the corresponding graph automatically.
+
+| Board action | Graph result |
+|-------------|-------------|
+| Text-to-3D generation | Prompt + Generation + Output nodes |
+| Image-to-3D generation | Load Image + Generation + Output nodes |
+| Retexture from context menu | Retexture node added downstream of existing pipeline |
+| Import a 3D file | Original Model + Output nodes inside a group |
+
+You can then switch to the graph view to see the full history, add new operations, or re-run with different parameters.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Nodes reference" icon="list" href="/features/node-graph/nodes-reference">
+    See every node type and what it does.
+  </Card>
+  <Card title="Connections" icon="link" href="/features/node-graph/connections">
+    Learn how wires, port types, and type matching work.
+  </Card>
+</Columns>

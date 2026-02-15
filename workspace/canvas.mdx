@@ -1,0 +1,78 @@
+---
+title: "Canvas"
+description: "Viewport controls, camera behavior, selection, transforms, and grid snapping on the plane3 canvas."
+---
+
+The canvas is the main working surface in plane3. You view and interact with 3D objects on an infinite isometric grid using the controls described on this page.
+
+## Isometric camera
+
+plane3 uses an isometric orthographic camera:
+
+- **Fixed pitch** of 35.264 degrees -- this is the standard isometric angle where all three axes appear equally foreshortened
+- **Parallel projection** -- objects do not get smaller with distance, and parallel lines remain parallel regardless of position
+- **No perspective distortion** -- what you see is geometrically consistent, which makes it easier to judge relative sizes and positions
+
+The isometric view gives you a consistent, predictable way to work with 3D objects without the visual complexity of a perspective camera.
+
+## Camera controls
+
+| Action | Input |
+|--------|-------|
+| **Pan** | Middle mouse button drag, or `Shift` + left mouse button drag |
+| **Zoom** | Scroll wheel up to zoom in, scroll wheel down to zoom out |
+| **Rotate** | `Q` to rotate 90 degrees counterclockwise, `E` to rotate 90 degrees clockwise |
+
+<Tip>
+Rotation snaps in 90-degree increments. This keeps the isometric grid aligned and ensures objects stay visually consistent as you rotate the view.
+</Tip>
+
+## Grid
+
+The canvas displays an infinite isometric ground grid. The grid serves as a spatial reference for positioning and aligning objects. It extends in all directions without boundaries -- you can pan as far as you need.
+
+## Selection
+
+You can select objects on the canvas in several ways:
+
+| Method | Behavior |
+|--------|----------|
+| **Click** | Select a single object. Deselects any previous selection. |
+| **Shift + click** | Add or remove an object from the current selection. |
+| **Marquee drag** | Click and drag on an empty area of the canvas to draw a selection rectangle. All objects within the rectangle are selected. |
+| **Escape** | Deselect all objects. |
+
+When you select an object, its properties appear in the right panel.
+
+## Transform gizmos
+
+Selected objects display transform gizmos that let you manipulate them directly on the canvas.
+
+<Tabs>
+  <Tab title="Move">
+    Drag the move gizmo to reposition objects on the XZ plane (the ground plane). Movement snaps to the grid by default.
+  </Tab>
+  <Tab title="Rotate">
+    Drag the rotate gizmo to rotate objects around the Y axis (vertical axis). Rotation snaps to 90-degree increments.
+  </Tab>
+  <Tab title="Scale">
+    Drag the scale gizmo to resize objects. You can scale uniformly or along individual axes.
+  </Tab>
+</Tabs>
+
+## Snapping
+
+Transforms snap to predictable increments by default:
+
+- **Move** snaps to the grid, keeping objects aligned with the isometric grid lines
+- **Rotate** snaps to 90-degree steps
+
+Snapping helps you keep objects organized and aligned without manual precision.
+
+## Focus
+
+To frame a selected object in the center of the viewport, use the focus action. This adjusts the camera position and zoom level so the selected object fills the view. This is helpful when navigating large boards with many objects spread across the canvas.
+
+## Keyboard shortcuts
+
+For a complete list of canvas and tool shortcuts, see [Keyboard shortcuts](/workspace/keyboard-shortcuts).

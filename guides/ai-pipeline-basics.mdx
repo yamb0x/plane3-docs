@@ -1,0 +1,80 @@
+---
+title: "Build your first AI pipeline"
+description: "Chain AI generation and retexturing operations together using the node graph to create a repeatable pipeline."
+---
+
+This tutorial shows you how to use the node graph to build a pipeline that generates a 3D model and then automatically retextures it. Once built, you can re-run the pipeline with different inputs to produce new models without repeating the setup.
+
+<Steps>
+  <Step title="Switch to graph view">
+    Click the view toggle in the top bar and select **Graph**. The canvas is replaced by the node graph editor -- a workspace where you create and connect processing nodes.
+  </Step>
+
+  <Step title="Create a prompt node">
+    Double-click on the graph canvas to open the node creation menu. Search for or select **Prompt** from the list. A Prompt node appears on the graph.
+
+    Click the node to select it, then type your text prompt in the node's input field. For example:
+
+    ```
+    a fantasy potion bottle with a cork stopper
+    ```
+  </Step>
+
+  <Step title="Add a generation node">
+    Double-click the graph canvas again and select **Hunyuan3D Text** (or another text-to-3D service node). Place it to the right of your Prompt node.
+
+    Now connect them: drag from the **output port** of the Prompt node to the **prompt input port** of the Hunyuan3D Text node. A connection line appears between the two nodes.
+  </Step>
+
+  <Step title="Run the generation">
+    Click **Run** on the generation node (or select it and press `Enter`). The node begins processing and shows a progress indicator.
+
+    When generation completes, the output port on the generation node contains your 3D model. An output node is auto-created to display the result.
+
+    <Note>
+      Generation in the node graph works the same as on the canvas -- it takes roughly 60 to 90 seconds depending on the service and load.
+    </Note>
+  </Step>
+
+  <Step title="Add a retexture node">
+    Double-click the graph canvas and select **Retexture**. Place it after the generation node.
+
+    Connect the **mesh output port** of the generation node to the **mesh input port** of the Retexture node. You can optionally connect a second Prompt node to the Retexture node's prompt input to guide the texture style.
+  </Step>
+
+  <Step title="Run the retexture">
+    Click **Run** on the Retexture node. It takes the generated mesh and applies new textures to it. When complete, the output node updates with the retextured model.
+
+    <Tip>
+      You can chain additional nodes after Retexture -- for example, a Remesh node to clean up topology before exporting.
+    </Tip>
+  </Step>
+
+  <Step title="Iterate by re-running">
+    To generate a different model with the same pipeline, change the text in the Prompt node and re-run the generation node. The model updates in place -- each downstream node re-processes automatically when its input changes and you trigger a run.
+
+    This is the core value of pipelines: build the workflow once, then iterate by changing inputs.
+  </Step>
+</Steps>
+
+## Key concepts
+
+- **Nodes** represent individual operations (prompt input, AI generation, retexture, mesh processing)
+- **Connections** define data flow between nodes -- they determine the order of execution
+- **Re-running** a node processes it again with its current inputs and updates all downstream results
+- **Pipelines persist** on the board -- you can return to a pipeline later and continue working with it
+
+<Warning>
+  Re-running a generation node replaces the previous output. If you want to keep both versions, duplicate the generation node before re-running.
+</Warning>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Node graph overview" icon="diagram-project" href="/features/node-graph/overview">
+    Learn about all node types and graph features.
+  </Card>
+  <Card title="Nodes reference" icon="list" href="/features/node-graph/nodes-reference">
+    See the full list of available nodes and their inputs and outputs.
+  </Card>
+</Columns>

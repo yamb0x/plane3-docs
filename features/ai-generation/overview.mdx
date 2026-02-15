@@ -1,0 +1,51 @@
+---
+title: "AI generation"
+description: "Generate 3D models from text prompts or reference images directly on the canvas or through visual node graph pipelines."
+---
+
+plane3 includes built-in AI generation that turns text descriptions and reference images into 3D models. You can generate directly on the canvas for quick results, or build multi-step pipelines in the node graph for more control.
+
+## Two ways to generate
+
+plane3 follows a two-tier interaction model. AI generation works at both tiers.
+
+<Columns cols={2}>
+  <Card title="Board level" icon="hand-pointer">
+    Double-click anywhere on the canvas to open the generate menu. Choose **Text to 3D** or **Image to 3D**, enter your input, pick a model, and click **Generate**. The result appears on the canvas in 30 seconds to a few minutes depending on the service.
+  </Card>
+  <Card title="Node graph level" icon="diagram-project">
+    Switch to the graph view to chain multiple AI services into visual pipelines. Connect a Prompt node to a generation node, add retexturing or mesh refinement downstream, and run the entire pipeline with one click. Each node represents one operation, and connections define data flow.
+  </Card>
+</Columns>
+
+Board-level generation is the fastest way to get a 3D model onto your canvas. The node graph gives you fine-grained control when you need to combine multiple services or re-run a pipeline with different parameters.
+
+## Available AI services
+
+plane3 integrates several AI services for different tasks.
+
+- **Text-to-3D** -- Generate a model from a text description using Hunyuan3D v3.
+- **Image-to-3D** -- Generate a model from a reference image using Hunyuan3D v3, Trellis, TripoSR, InstantMesh, or Seed3D.
+- **Retexturing** -- Replace or generate new textures on an existing mesh.
+- **Remeshing** -- Regenerate mesh topology for cleaner geometry.
+- **Mesh refinement** -- Refine geometry using a reference image.
+- **PBR estimation** -- Estimate physically-based material maps from a single image.
+
+For the full list of services with durations and descriptions, see the [AI services reference](/features/ai-generation/ai-services).
+
+## How generation connects to the node graph
+
+Every generation you run on the canvas automatically creates a corresponding node graph behind the scenes. When you generate a model from a text prompt, plane3 records a Prompt node connected to a generation node connected to an Output node. You can switch to the graph view at any time to see this history, modify parameters, and re-run.
+
+This means you never lose the recipe for how an asset was created. You can always go back, tweak the prompt or swap the model, and regenerate.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Text-to-3D" icon="keyboard" href="/features/ai-generation/text-to-3d">
+    Learn how to generate 3D models from text prompts.
+  </Card>
+  <Card title="Image-to-3D" icon="image" href="/features/ai-generation/image-to-3d">
+    Learn how to generate 3D models from reference images.
+  </Card>
+</Columns>

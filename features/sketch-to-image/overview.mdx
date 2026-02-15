@@ -1,0 +1,84 @@
+---
+title: "Sketch to image"
+description: "Draw freehand on a real-time AI canvas and see generated images update as you sketch, then send results to 3D generation."
+---
+
+Sketch to image is a fullscreen drawing canvas where your freehand sketches are converted into AI-generated images in real time. As you draw, the AI output updates continuously, giving you immediate visual feedback on your ideas.
+
+## How it works
+
+The interface is a split view.
+
+- **Left side** -- A drawing canvas where you sketch with freehand tools.
+- **Right side** -- The AI-generated image that updates in near real time as you draw.
+
+The AI processes your sketch through fal.ai's real-time WebSocket API, producing a new image approximately every 128 milliseconds (~7.8 fps) when the connection is warm. The first generation after opening the canvas has a cold-start latency of about 3.3 seconds.
+
+## Opening sketch to image
+
+Click the **Sketch to image** button in the toolbar or use the command menu. The feature opens in fullscreen, replacing the canvas view temporarily. Your board is unaffected -- close sketch to image to return to the canvas.
+
+## Drawing tools
+
+The sketch canvas provides basic drawing tools.
+
+| Tool | Description |
+|------|-------------|
+| Pen | Freehand drawing with adjustable brush size and color. |
+| Eraser | Remove parts of your sketch. |
+| Clear | Reset the canvas to blank. |
+
+## Controls
+
+### Prompt
+
+Enter a text prompt in the prompt field to guide the AI interpretation of your sketch. For example, typing "a futuristic car" causes the AI to interpret your rough shapes as a vehicle. Without a prompt, the AI generates based on the sketch alone.
+
+### Strength slider
+
+The strength slider controls the balance between your sketch and the AI's creative interpretation.
+
+| Strength | Behavior |
+|----------|----------|
+| Low (toward sketch) | The output closely follows the lines and shapes you drew. Less AI interpretation. |
+| High (toward AI) | The AI takes more creative liberty. Your sketch serves as a loose guide. |
+
+Adjust the slider while drawing to find the right balance for your needs.
+
+## Using the output
+
+Once you have an AI-generated image you like, you have two options.
+
+### Save as image reference
+
+Click **Save to canvas** to place the generated image on your board as an image reference. You can then use it as a mood board element or visual reference for your team.
+
+### Send to 3D generation
+
+Click **Generate 3D** to send the image directly to image-to-3D generation. This opens the generate menu with the image pre-loaded, letting you choose a model and create a 3D object from your sketch-derived image.
+
+<Tip>
+  The sketch-to-image-to-3D workflow is a fast way to go from a rough idea in your head to a 3D model on the canvas. Sketch your concept, let the AI refine it into an image, then generate a 3D model from that image.
+</Tip>
+
+## Performance
+
+| Metric | Value |
+|--------|-------|
+| Frame rate | ~7.8 fps (128ms per frame) |
+| Cold start latency | ~3.3 seconds |
+| Warm latency | ~128 milliseconds |
+| Connection | WebSocket to fal.ai |
+
+Performance depends on network conditions and fal.ai server load. The WebSocket connection stays open for the duration of your sketch session to minimize latency.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Image-to-3D" icon="cube" href="/features/ai-generation/image-to-3d">
+    Generate 3D models from your sketch-to-image outputs.
+  </Card>
+  <Card title="Reference images" icon="image" href="/features/annotations/reference-images">
+    Learn more about image references on the canvas.
+  </Card>
+</Columns>

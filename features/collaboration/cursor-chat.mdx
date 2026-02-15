@@ -1,0 +1,60 @@
+---
+title: "Cursor chat"
+description: "Send short text messages that float next to your cursor on the canvas for quick in-context communication."
+---
+
+Cursor chat lets you type a short message that appears next to your cursor on the canvas. Other users on the board see your message floating beside your cursor in real time. It is designed for quick, contextual callouts -- not lengthy conversations.
+
+## How to use cursor chat
+
+<Steps>
+  <Step title="Press the shortcut">
+    Press `/` (forward slash) anywhere on the canvas. A text input field appears attached to your cursor.
+  </Step>
+  <Step title="Type your message">
+    Type your message. The maximum length is 52 characters. The message appears next to your cursor as you type, so others can read it in real time.
+  </Step>
+  <Step title="Send">
+    Press **Enter** to send. The message stays visible next to your cursor for 5 seconds, then fades out automatically.
+  </Step>
+</Steps>
+
+## When to use cursor chat
+
+Cursor chat works best for short, situational messages that benefit from spatial context.
+
+- **Directing attention** -- Move your cursor to a specific area and type "look at this" or "what do you think of this part?"
+- **Quick feedback** -- Hover near an object and type "texture needs work" or "this looks good."
+- **Status updates** -- Let teammates know "working on this one" or "ready for review."
+- **Coordination** -- Type "don't edit this yet" while pointing at an object you are about to modify.
+
+<Tip>
+  Since the message appears at your cursor's position, move your cursor to the relevant area before pressing `/` so your message has spatial context.
+</Tip>
+
+## Behavior details
+
+| Property | Value |
+|----------|-------|
+| Keyboard shortcut | `/` |
+| Maximum message length | 52 characters |
+| Display duration | 5 seconds after sending |
+| Visibility | All users on the board |
+| Sync method | Real-time over collaboration WebSocket |
+
+Messages are ephemeral. They are not stored or logged. Once a message fades out, it is gone. If you need persistent comments, use [sticky notes](/features/annotations/sticky-notes) instead.
+
+## Canceling a message
+
+Press **Escape** while the text input is open to cancel without sending. The input field closes and no message is broadcast.
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Live cursors" icon="arrow-pointer" href="/features/collaboration/live-cursors">
+    Learn how cursor presence and selection highlighting work.
+  </Card>
+  <Card title="Sticky notes" icon="note-sticky" href="/features/annotations/sticky-notes">
+    Add persistent comments to the canvas.
+  </Card>
+</Columns>

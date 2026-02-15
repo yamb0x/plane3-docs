@@ -1,0 +1,78 @@
+---
+title: "Nodes reference"
+description: "Complete reference of all node types in the plane3 node graph, organized by category."
+---
+
+The node graph includes node types across five categories. This page lists every node with its inputs, outputs, and a brief description.
+
+## Core nodes
+
+These nodes are the building blocks present in most pipelines.
+
+| Node | Inputs | Outputs | Description |
+|------|--------|---------|-------------|
+| Original Model | -- | MESH | The starting point for imported 3D files. Contains the raw mesh data as loaded. |
+| Load Image | -- | IMAGE | Loads an image file for use as a reference. Can source from an uploaded file or a canvas image reference. |
+| Prompt | -- | TEXT | Holds a text string used as input for generation nodes. You edit the text directly on the node. |
+| Output | MESH | -- | Marks the final result of a pipeline branch. The mesh connected here is what appears on the canvas. |
+
+## Text-to-3D nodes
+
+| Node | Inputs | Outputs | Description |
+|------|--------|---------|-------------|
+| Hunyuan3D Text | TEXT (prompt) | MESH | Generates a textured 3D mesh from a text description. 60-90 second generation time. |
+
+## Image-to-3D nodes
+
+| Node | Inputs | Outputs | Description |
+|------|--------|---------|-------------|
+| Hunyuan3D Image | IMAGE (reference) | MESH | Generates a 3D mesh from a reference image using Hunyuan3D v3. 60-90 seconds. |
+| Trellis | IMAGE (reference) | MESH | Image-to-3D with detailed geometry. 2-3 minutes. |
+| TripoSR | IMAGE (reference) | MESH | Fast single-image 3D reconstruction. ~30 seconds. |
+| InstantMesh | IMAGE (reference) | MESH | Single-image mesh generation with balanced quality and speed. ~60 seconds. |
+| Seed3D | IMAGE (reference) | MESH | Image-to-3D generation by ByteDance. ~2 minutes. |
+
+## AI 3D operation nodes
+
+These nodes modify existing meshes using AI services.
+
+| Node | Inputs | Outputs | Description |
+|------|--------|---------|-------------|
+| Retexture | MESH, TEXT (optional prompt) | MESH | Generates new textures for an existing mesh using Meshy-5. 3-5 minutes. |
+| Remesh | MESH | MESH | Regenerates mesh topology for cleaner geometry using Meshy-5. 3-5 minutes. |
+| UltraShape | MESH, IMAGE (reference) | MESH | Refines mesh geometry guided by a reference image. 3-5 minutes. |
+| PBR Estimate | IMAGE | IMAGE (albedo), IMAGE (normal), IMAGE (roughness), IMAGE (metallic) | Estimates PBR material maps from a single image using PBR Playground. 30-60 seconds. |
+
+## Local operation nodes
+
+These nodes run in your browser via WebAssembly. They execute in seconds with no network dependency.
+
+| Node | Inputs | Outputs | Description |
+|------|--------|---------|-------------|
+| Quad Remesh | MESH, NUMBER (target face count) | MESH | Converts triangle meshes to quad-dominant topology with configurable density. |
+| UV Unwrap | MESH | MESH | Generates UV coordinates for meshes that lack them. Required before texturing operations. |
+| Subdivide | MESH, NUMBER (iterations) | MESH | Increases mesh resolution by subdividing faces. Each iteration roughly quadruples the face count. |
+| Smooth | MESH, NUMBER (iterations), NUMBER (factor) | MESH | Applies Laplacian smoothing to reduce noise. The factor parameter controls the smoothing strength. |
+
+## Port types
+
+Each input and output port has a type. For a complete explanation of port types and compatibility rules, see [Connections](/features/node-graph/connections).
+
+| Type | Color | Data |
+|------|-------|------|
+| MESH | Blue | 3D mesh with geometry, UVs, and textures |
+| IMAGE | Green | 2D image (PNG, JPEG) |
+| TEXT | Orange | Text string |
+| NUMBER | Gray | Numeric value |
+| BOOLEAN | Red | True or false |
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Connections" icon="link" href="/features/node-graph/connections">
+    Learn how to wire nodes together and how type matching works.
+  </Card>
+  <Card title="Pipelines" icon="code-branch" href="/features/node-graph/pipelines">
+    Build and run multi-step AI pipelines.
+  </Card>
+</Columns>
